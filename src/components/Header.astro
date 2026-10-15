@@ -1,0 +1,117 @@
+---
+interface Props {
+  active?: 'accueil' | 'projets' | 'a-propos' | 'contact';
+}
+
+const { active = 'accueil' } = Astro.props;
+
+const navLinks = [
+  { id: 'accueil', name: 'Accueil', href: '/' },
+  { id: 'projets', name: 'Projets', href: '#projets' },
+  { id: 'a-propos', name: 'À propos', href: '#a-propos' },
+  { id: 'contact', name: 'Contact', href: '#contact' },
+];
+---
+
+<header class="sticky top-0 z-50 w-full bg-neutres-blanc-casse/95 backdrop-blur-[16px] border-b border-bordures-subtiles">
+  <div class="max-w-[1280px] mx-auto w-full h-14 px-6 sm:px-10 flex items-center justify-between">
+    <!-- Logo Identité (Figma node: 340-968) -->
+    <a
+      href="/"
+      class="text-[30px] leading-[30px] font-londrina font-normal text-marque-orange hover:opacity-85 transition-opacity select-none"
+    >
+      Matthis
+    </a>
+
+    <!-- Navigation Desktop (Figma node: 340-971) -->
+    <nav class="hidden md:flex items-center gap-8" aria-label="Navigation principale">
+      {navLinks.map((link) => {
+        const isActive = active === link.id;
+        return (
+          <a
+            href={link.href}
+            class:list={[
+              "text-[20px] leading-[24px] font-londrina font-normal transition-colors py-1 border-b-[1.6px]",
+              isActive
+                ? "text-marque-orange border-marque-orange"
+                : "text-neutres-gris-fonce border-transparent hover:text-marque-orange"
+            ]}
+            aria-current={isActive ? "page" : undefined}
+          >
+            {link.name}
+          </a>
+        );
+      })}
+    </nav>
+
+    <!-- Bouton Toggle Mobile -->
+    <button
+      id="mobile-menu-btn"
+      type="button"
+      class="md:hidden p-2 text-neutres-gris-fonce hover:text-marque-orange focus:outline-none focus-visible:ring-2 focus-visible:ring-marque-orange rounded transition-colors"
+      aria-label="Ouvrir le menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Menu Mobile Déroulant -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden border-t border-bordures-subtiles bg-neutres-blanc-casse px-6 py-4 shadow-sm"
+  >
+    <nav class="flex flex-col gap-4" aria-label="Navigation mobile">
+      {navLinks.map((link) => {
+        const isActive = active === link.id;
+        return (
+          <a
+            href={link.href}
+            class:list={[
+              "text-[22px] leading-[26px] font-londrina font-normal transition-colors py-1.5 border-b-[1.6px] inline-block w-fit",
+              isActive
+                ? "text-marque-orange border-marque-orange"
+                : "text-neutres-gris-fonce border-transparent hover:text-marque-orange"
+            ]}
+            aria-current={isActive ? "page" : undefined}
+          >
+            {link.name}
+          </a>
+        );
+      })}
+    </nav>
+  </div>
+</header>
+
+<script>
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const openIcon = document.getElementById('menu-icon-open');
+  const closeIcon = document.getElementById('menu-icon-close');
+
+  if (menuBtn && mobileMenu && openIcon && closeIcon) {
+    menuBtn.addEventListener('click', () => {
+      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', String(!isExpanded));
+      mobileMenu.classList.toggle('hidden');
+      openIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+    });
+
+    mobileMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        openIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      });
+    });
+  }
+</script>
+

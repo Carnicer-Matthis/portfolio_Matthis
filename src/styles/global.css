@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@300;400;900&display=swap');
+@import "tailwindcss";
+
+/* Couleurs & Typographie Figma */
+:root {
+  /* Couleurs */
+  --bordures-subtiles: #d4d0cf;
+  --marque-orange: #fa855a;
+  --neutres-blanc-casse: #f3f0ee;
+  --neutres-gris-fonce: #514e4c;
+  --neutres-noir: #000000;
+  --surfaces-blanc: #ffffff;
+  --texte-secondaire: #9e9b99;
+
+  /* Typographie - dimensions */
+  --body1-approche: 0rem;
+  --body1-taille: 1.125rem;
+  --body1-interligne: 1.575rem;
+
+  --body2-approche: 0.0175rem;
+  --body2-taille: 0.875rem;
+  --body2-interligne: 1.225rem;
+
+  --display-approche: 0rem;
+  --display-taille: 4.5rem;
+  --display-interligne: 4.95rem;
+
+  --legende-approche: 0.0275rem;
+  --legende-taille: 0.6875rem;
+  --legende-interligne: 0.9625rem;
+
+  --t1-approche: 0rem;
+  --t1-taille: 3.75rem;
+  --t1-interligne: 4.125rem;
+
+  --t2-approche: 0rem;
+  --t2-taille: 3rem;
+  --t2-interligne: 3.3rem;
+
+  --t3-approche: 0rem;
+  --t3-taille: 2rem;
+  --t3-interligne: 2.2rem;
+
+  --t4-approche: 0rem;
+  --t4-taille: 1.5rem;
+  --t4-interligne: 1.8rem;
+
+  /* Typographie - polices & graisses */
+  --graisse-light: 300;
+  --graisse-regular: 400;
+  --police-londrina: 'Londrina Solid', sans-serif;
+}
+
+/* Configuration du Thème Tailwind CSS */
+@theme {
+  /* Couleurs (génère bg-*, text-*, border-*, etc.) */
+  --color-bordures-subtiles: var(--bordures-subtiles);
+  --color-marque-orange: var(--marque-orange);
+  --color-neutres-blanc-casse: var(--neutres-blanc-casse);
+  --color-neutres-gris-fonce: var(--neutres-gris-fonce);
+  --color-neutres-noir: var(--neutres-noir);
+  --color-surfaces-blanc: var(--surfaces-blanc);
+  --color-texte-secondaire: var(--texte-secondaire);
+
+  /* Police (génère font-londrina) */
+  --font-londrina: var(--police-londrina);
+
+  /* Tailles typographiques avec interligne et approche */
+  --text-display: var(--display-taille);
+  --text-display--line-height: var(--display-interligne);
+  --text-display--letter-spacing: var(--display-approche);
+
+  --text-t1: var(--t1-taille);
+  --text-t1--line-height: var(--t1-interligne);
+  --text-t1--letter-spacing: var(--t1-approche);
+
+  --text-t2: var(--t2-taille);
+  --text-t2--line-height: var(--t2-interligne);
+  --text-t2--letter-spacing: var(--t2-approche);
+
+  --text-t3: var(--t3-taille);
+  --text-t3--line-height: var(--t3-interligne);
+  --text-t3--letter-spacing: var(--t3-approche);
+
+  --text-t4: var(--t4-taille);
+  --text-t4--line-height: var(--t4-interligne);
+  --text-t4--letter-spacing: var(--t4-approche);
+
+  --text-body1: var(--body1-taille);
+  --text-body1--line-height: var(--body1-interligne);
+  --text-body1--letter-spacing: var(--body1-approche);
+
+  --text-body2: var(--body2-taille);
+  --text-body2--line-height: var(--body2-interligne);
+  --text-body2--letter-spacing: var(--body2-approche);
+
+  --text-legende: var(--legende-taille);
+  --text-legende--line-height: var(--legende-interligne);
+  --text-legende--letter-spacing: var(--legende-approche);
+}

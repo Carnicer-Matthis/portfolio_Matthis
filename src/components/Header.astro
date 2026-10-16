@@ -14,11 +14,11 @@ const navLinks = [
 ---
 
 <header class="sticky top-0 z-50 w-full bg-neutres-blanc-casse/95 backdrop-blur-[16px] border-b border-bordures-subtiles">
-  <div class="w-full h-14 px-4 sm:px-6 md:px-10 flex items-center justify-between">
+  <div class="w-full max-w-[1360px] mx-auto h-14 px-6 sm:px-8 md:px-12 flex items-center justify-between">
     <!-- Logo Identité (Figma node: 340-968) -->
     <a
       href="/"
-      class="text-[30px] leading-[30px] font-londrina font-normal text-marque-orange hover:opacity-85 transition-opacity select-none"
+      class="text-[28px] sm:text-[30px] leading-none font-londrina font-normal text-marque-orange hover:opacity-85 transition-opacity select-none"
     >
       Matthis
     </a>
@@ -65,7 +65,7 @@ const navLinks = [
   <!-- Menu Mobile Déroulant -->
   <div
     id="mobile-menu"
-    class="hidden md:hidden border-t border-bordures-subtiles bg-neutres-blanc-casse px-6 py-4 shadow-sm"
+    class="hidden md:hidden border-t border-bordures-subtiles bg-neutres-blanc-casse/98 backdrop-blur-md px-6 py-5 shadow-lg"
   >
     <nav class="flex flex-col gap-4" aria-label="Navigation mobile">
       {navLinks.map((link) => {
@@ -114,4 +114,3 @@ const navLinks = [
     });
   }
 </script>
-

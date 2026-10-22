@@ -54,7 +54,10 @@ try {
           <article class="flex flex-col h-full group select-none max-w-md mx-auto sm:max-w-none w-full">
             
             <!-- Vignette Effet Sticker avec aspect ratio 16/10 fixe sans déformation -->
-            <div class="w-full aspect-[16/10] rounded-[12px] group-hover:shadow-[0_10px_20px_rgba(0,0,0,0.18)] transition-all overflow-hidden flex items-center justify-center">
+            <a
+              href={`/projets/${projet.id}`}
+              class="w-full aspect-[16/10] rounded-[12px] group-hover:shadow-[0_10px_20px_rgba(0,0,0,0.18)] transition-all overflow-hidden flex items-center justify-center block"
+            >
               {imageUrl ? (
                 <img
                   src={imageUrl}
@@ -68,13 +71,15 @@ try {
                   <span class="font-mono text-xs text-texte-secondaire mt-1">Image à venir</span>
                 </div>
               )}
-            </div>
+            </a>
 
             <!-- Titre et Numéro (Figma nodes: 340-1068, 340-1071) -->
             <div class="flex items-baseline justify-between mt-4 sm:mt-5 mb-2">
-              <h3 class="font-londrina font-normal text-[26px] sm:text-[30px] md:text-[32px] leading-none text-neutres-gris-fonce group-hover:text-marque-orange transition-colors">
-                {projet.Nom_projet}
-              </h3>
+              <a href={`/projets/${projet.id}`} class="hover:underline">
+                <h3 class="font-londrina font-normal text-[26px] sm:text-[30px] md:text-[32px] leading-none text-neutres-gris-fonce group-hover:text-marque-orange transition-colors">
+                  {projet.Nom_projet}
+                </h3>
+              </a>
               <span class="font-mono text-[11px] text-[#6F6A64] tracking-widest uppercase">
                 {numFormatted}
               </span>
@@ -95,7 +100,7 @@ try {
             <!-- Bouton Voir le projet (Figma node: 340-1080) -->
             <div class="mt-auto pt-2">
               <a
-                href={`#projet-${projet.id}`}
+                href={`/projets/${projet.id}`}
                 class="inline-flex items-center justify-center px-5 py-1.5 rounded-full border border-marque-orange font-londrina font-normal text-[18px] sm:text-[20px] text-neutres-gris-fonce hover:bg-marque-orange hover:text-surfaces-blanc transition-all"
               >
                 Voir le projet

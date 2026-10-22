@@ -1,0 +1,79 @@
+---
+import { Image } from 'astro:assets';
+import githubIcon from '../assets/icon_github.png';
+import linkedinIcon from '../assets/icon_linkedin.png';
+import emailIcon from '../assets/icon_email.png';
+
+const navLinks = [
+  { name: 'Accueil', href: '/' },
+  { name: 'Projets', href: '/#projets' },
+  { name: 'À propos', href: '/#a-propos' },
+  { name: 'Contact', href: '/#contact' },
+];
+---
+
+<footer class="w-full bg-[#514E4C] text-neutres-blanc-casse py-12 sm:py-16 px-6 sm:px-10 border-t border-bordures-subtiles">
+  <div class="w-full max-w-[1280px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
+    
+    <!-- Colonne Gauche : Nom, Nav, Copyright -->
+    <div class="flex flex-col gap-6">
+      <h2 class="font-londrina font-normal text-[48px] sm:text-[64px] md:text-[72px] leading-none text-marque-orange">
+        Matthis Carnicer
+      </h2>
+
+      <nav class="flex flex-wrap items-center gap-6 sm:gap-8" aria-label="Navigation pied de page">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="font-londrina font-normal text-[20px] sm:text-[24px] text-neutres-blanc-casse hover:text-marque-orange transition-colors"
+          >
+            {link.name}
+          </a>
+        ))}
+      </nav>
+
+      <p class="font-sans text-[13px] sm:text-[14px] text-neutres-blanc-casse/70 mt-2">
+        © 2026 Matthis Carnicer. Tous droits réservés.
+      </p>
+    </div>
+
+    <!-- Colonne Droite : Mes réseaux -->
+    <div class="flex flex-col gap-3 items-start md:items-end">
+      <h3 class="font-londrina font-normal text-[22px] sm:text-[24px] text-marque-orange">
+        Mes réseaux
+      </h3>
+
+      <div class="flex items-center gap-4">
+        <a
+          href="https://github.com/Carnicer-Matthis"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-10 h-10 rounded-full bg-neutres-blanc-casse/10 hover:bg-neutres-blanc-casse/20 flex items-center justify-center p-2 transition-all hover:scale-105"
+          aria-label="Profil GitHub"
+        >
+          <Image src={githubIcon} alt="GitHub" class="w-full h-full object-contain" />
+        </a>
+
+        <a
+          href="https://www.linkedin.com/in/matthis-carnicer"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="w-10 h-10 rounded-full bg-neutres-blanc-casse/10 hover:bg-neutres-blanc-casse/20 flex items-center justify-center p-2 transition-all hover:scale-105"
+          aria-label="Profil LinkedIn"
+        >
+          <Image src={linkedinIcon} alt="LinkedIn" class="w-full h-full object-contain" />
+        </a>
+
+        <a
+          href="mailto:contact@matthis-carnicer.fr"
+          class="w-10 h-10 rounded-full bg-neutres-blanc-casse/10 hover:bg-neutres-blanc-casse/20 flex items-center justify-center p-2 transition-all hover:scale-105"
+          aria-label="Envoyer un e-mail"
+        >
+          <Image src={emailIcon} alt="Email" class="w-full h-full object-contain" />
+        </a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+

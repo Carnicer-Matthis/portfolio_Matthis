@@ -1,0 +1,416 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const PB_URL = 'http://127.0.0.1:8090';
+
+export interface ProjectRecord {
+  id: string;
+  collectionId: string;
+  Numero: number;
+  Nom_projet: string;
+  Sous_titre: string;
+  Parcours: string;
+  Titre_contexte: string;
+  Description_contexte: string;
+  Problematique: string;
+  Titre_solution: string;
+  Elements_solution: string;
+  Role: string;
+  Technologies: string;
+  Competences: string;
+  Equipe: string;
+  Livrables: string;
+  Resultat: string;
+  URL_resultat: string;
+  Image_projet?: string;
+  [key: string]: any;
+}
+
+// Données de secours complètes si PocketBase est indisponible au build
+const fallbackProjects: ProjectRecord[] = [
+  {
+    id: "1zje4st8n7elkvj",
+    collectionId: "pbc_1621812433",
+    Numero: 1,
+    Nom_projet: "Odysignes",
+    Sous_titre: "Plateforme LSF gamifiée",
+    Parcours: "Développement web",
+    Titre_contexte: "Une plateforme pour apprendre la LSF avec plaisir",
+    Description_contexte: "Une application web éducative et gamifiée pour apprendre la LSF. Odysignes est une application web conçue pour rendre l'apprentissage de la langue des signes française (LSF) accessible et ludique. Le projet combine des mécaniques de gamification et des outils pratiques pour transformer la pratique en une expérience interactive.",
+    Problematique: "Rendre l'apprentissage de la LSF engageant tout en construisant une stratégie de lancement solide. Les apprenants recherchent une approche dynamique plutôt qu'une simple mémorisation, avec un besoin d'accéder rapidement à des traductions. En parallèle, il fallait concevoir une stratégie de communication complète.",
+    Titre_solution: "Une plateforme technique ajoutée à une communication structurée",
+    Elements_solution: "<ul><li>Prise en charge d'une grande partie du développement global de l'application web (interface et logique back-end).</li><li>Intégration d'un dictionnaire LSF complet, débloqué dès la première utilisation pour permettre aux utilisateurs de faire des recherches et des traductions rapides.</li><li>Participation active à l'élaboration et à la rédaction des dossiers de communication du projet.</li></ul>",
+    Role: "Développeur / Assistant communication",
+    Technologies: "Astro, Tailwind CSS, PocketBase",
+    Competences: "<ul><li>Développement Front-end & Back-end</li><li>Architecture de base de données</li><li>Stratégie de communication</li></ul>",
+    Equipe: "3 personnes",
+    Livrables: "<ul><li>Application web interactive</li><li>Base de données</li><li>Dossiers de communication</li><li>Maquettes / Prototypes</li></ul>",
+    Resultat: "Un projet universitaire complet et fonctionnel, alliant une expérience utilisateur fluide à une stratégie de visibilité.",
+    URL_resultat: "",
+    Image_projet: "sticker_odysigne_arxo3miu5n.webp"
+  },
+  {
+    id: "ed8dmo5r4m4vai0",
+    collectionId: "pbc_1621812433",
+    Numero: 2,
+    Nom_projet: "C’est Ma Cam’",
+    Sous_titre: "Agence de communication fictive",
+    Parcours: "Communication",
+    Titre_contexte: "Création d'une agence de communication (SAÉ 106)",
+    Description_contexte: "« C'est Ma Cam' » est une agence de communication numérique fictive développée lors d'une SAÉ du BUT MMI. Le projet exigeait de concevoir une structure professionnelle complète, particulièrement en phase avec les tendances actuelles liées à l'éco-conception.",
+    Problematique: "Le défi consistait à définir la structure juridique, implanter l'agence dans un écosystème d'innovation et chiffrer un budget global prévisionnel. Il fallait en parallèle concevoir l'identité de l'agence et prouver sa rentabilité face à de futurs clients et investisseurs.",
+    Titre_solution: "Une conception alliant stratégie et numérique",
+    Elements_solution: "<ul><li>Analyse des règles du site de certification Opquast et positionnement SEO lié à l'éco-conception.</li><li>Création de l'identité visuelle de l'agence et production des visuels destinés aux réseaux sociaux pour appuyer une stratégie internationale.</li><li>Élaboration d'un dossier client complet et d'un dossier investisseur.</li><li>Justification argumentée de la forme juridique et du local professionnel, intégrée dans un plan budgétaire annuel.</li></ul>",
+    Role: "Cofondateur",
+    Technologies: "Figma, Outil de gestion de projet",
+    Competences: "<ul><li>Gestion de projet numérique</li><li>Sensibilisation à l'éco-conception</li><li>Stratégie d'entreprise & budgétisation</li><li>Soutenance en anglais</li></ul>",
+    Equipe: "3 personnes",
+    Livrables: "<ul><li>Dossier complet</li><li>Dossier client et dossier investisseur</li><li>Budget global annuel</li><li>Visuels de promotion</li></ul>",
+    Resultat: "Une structure d'agence chiffrée et documentée.",
+    URL_resultat: "",
+    Image_projet: "sticker_cmc_jqmqsw5wzg.webp"
+  },
+  {
+    id: "brrmaim36gff127",
+    collectionId: "pbc_1621812433",
+    Numero: 3,
+    Nom_projet: "Olyvia!",
+    Sous_titre: "Site WordPress conçu pour accompagner les femmes sur la ménopause",
+    Parcours: "Communication / design",
+    Titre_contexte: "Accompagner les femmes à travers une plateforme bienveillante",
+    Description_contexte: "Projet de conception d'un site web sous WordPress dédié à l'information et au soutien des femmes durant la ménopause.",
+    Problematique: "Déconstruire les tabous et offrir des ressources fiables, accessibles et rassurantes à travers une interface chaleureuse et moderne.",
+    Titre_solution: "Un espace d'information et d'échange sur mesure",
+    Elements_solution: "<ul><li>Conception de l'architecture de l'information et des parcours utilisateurs.</li><li>Intégration d'un thème WordPress personnalisé et responsive.</li><li>Création d'une identité visuelle rassurante et accessible.</li></ul>",
+    Role: "Designer UI/UX & Intégrateur WordPress",
+    Technologies: "WordPress, Figma, CSS3",
+    Competences: "<ul><li>Design d'interface UI/UX</li><li>Intégration CMS WordPress</li><li>Rédaction & vulgarisation de contenu</li></ul>",
+    Equipe: "Projet en équipe",
+    Livrables: "<ul><li>Site WordPress en ligne</li><li>Guide de style & maquettes Figma</li><li>Charte éditoriale</li></ul>",
+    Resultat: "Un site web complet, empathique et simple d'utilisation pour le public cible.",
+    URL_resultat: "",
+    Image_projet: "sticker_olyvia_wlgt7o3aqg.webp"
+  }
+];
+
+export async function getStaticPaths() {
+  const PB_URL = 'http://127.0.0.1:8090';
+  let projects: ProjectRecord[] = [];
+
+  try {
+    const res = await fetch(`${PB_URL}/api/collections/Projet/records?sort=Numero`, {
+      signal: AbortSignal.timeout(2000)
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.items && data.items.length > 0) {
+        projects = data.items;
+      }
+    }
+  } catch (error) {
+    console.warn("PocketBase non disponible lors du build, utilisation des données de secours.");
+  }
+
+  if (!projects.length) {
+    projects = fallbackProjects;
+  }
+
+  return projects.map((projet, index) => {
+    const nextProject = projects[(index + 1) % projects.length];
+    const prevProject = projects[(index - 1 + projects.length) % projects.length];
+
+    return {
+      params: { id: projet.id },
+      props: { projet, nextProject, prevProject }
+    };
+  });
+}
+
+interface Props {
+  projet: ProjectRecord;
+  nextProject: ProjectRecord;
+  prevProject: ProjectRecord;
+}
+
+const { projet, nextProject } = Astro.props;
+
+const numFormatted = String(projet.Numero).padStart(2, '0');
+const imageUrl = projet.Image_projet
+  ? `${PB_URL}/api/files/${projet.collectionId}/${projet.id}/${projet.Image_projet}`
+  : null;
+---
+
+<Layout title={`${projet.Nom_projet} — Matthis Carnicer`}>
+  <Header active="projets" />
+
+  <main class="w-full bg-neutres-blanc-casse min-h-screen py-8 sm:py-12 md:py-16">
+    <div class="w-full max-w-[1120px] mx-auto px-6 sm:px-8 md:px-12">
+      
+      <!-- Lien retour (Figma node: 340-1746) -->
+      <div class="mb-6 sm:mb-8">
+        <a
+          href="/#projets"
+          class="inline-flex items-center gap-2 font-londrina font-normal text-[20px] sm:text-[22px] text-marque-orange hover:opacity-80 transition-opacity select-none"
+        >
+          <span>← Explorations & Chantiers</span>
+        </a>
+      </div>
+
+      <!-- Bandeau Titre Sombre (Figma node: 340-1748) -->
+      <section class="w-full bg-[#514E4C] rounded-[4px] px-6 sm:px-8 py-5 sm:py-6 mb-10 sm:mb-14 text-neutres-blanc-casse select-none shadow-sm">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          
+          <!-- Groupe Gauche : Numéro + Titre + Sous-titre -->
+          <div class="flex flex-wrap items-baseline gap-x-4 sm:gap-x-5 gap-y-1">
+            <span class="font-londrina font-normal text-[48px] sm:text-[60px] leading-none text-marque-orange">
+              {numFormatted}
+            </span>
+            <h1 class="font-londrina font-normal text-[40px] sm:text-[54px] md:text-[56px] leading-none text-neutres-blanc-casse">
+              {projet.Nom_projet}
+            </h1>
+            <span class="font-sans text-[13px] sm:text-[14px] text-neutres-blanc-casse/85 self-center">
+              {projet.Sous_titre}
+            </span>
+          </div>
+
+          <!-- Groupe Droit : Parcours + Flèche Défilement -->
+          <div class="flex items-center gap-4 sm:gap-5 self-end md:self-center">
+            <span class="font-sans text-[13px] sm:text-[14px] text-neutres-blanc-casse/90">
+              {projet.Parcours}
+            </span>
+            <a
+              href="#details"
+              class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-neutres-blanc-casse/70 flex items-center justify-center text-neutres-blanc-casse text-base hover:border-marque-orange hover:text-marque-orange transition-colors"
+              aria-label="Défiler vers le contenu"
+            >
+              ↓
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Grille Principale 2 Colonnes (Contenu 8 cols / Sidebar 4 cols) -->
+      <div id="details" class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+        
+        <!-- Colonne Principale Gauche (8 colonnes) -->
+        <article class="lg:col-span-8 flex flex-col space-y-10 sm:space-y-12">
+          
+          <!-- Vignette / Image du Projet avec Effet Sticker (Figma node: 340-1768) -->
+          <div class="w-full aspect-[16/10] rounded-[12px] shadow-[0_6px_14px_rgba(0,0,0,0.18)] overflow-hidden flex items-center justify-center">
+            {imageUrl ? (
+              <img
+                src={imageUrl}
+                alt={`Image du projet ${projet.Nom_projet}`}
+                class="w-full h-full object-cover rounded-[12px]"
+              />
+            ) : (
+              <div class="w-full h-full bg-surfaces-blanc rounded-[12px] flex items-center justify-center p-6 text-center">
+                <span class="font-londrina text-4xl text-marque-orange">{projet.Nom_projet}</span>
+              </div>
+            )}
+          </div>
+
+          <!-- Section Contexte (Figma nodes: 340-1772, 340-1774, 340-1776) -->
+          <section>
+            <span class="block font-sans font-semibold text-[10px] sm:text-[11px] text-[#6F6A64] tracking-wider uppercase mb-1">
+              Contexte
+            </span>
+            <h2 class="font-londrina font-normal text-[32px] sm:text-[40px] md:text-[44px] leading-[1.05] text-[#2B2927] mb-3">
+              {projet.Titre_contexte}
+            </h2>
+            <div
+              class="font-sans text-[15px] sm:text-[16px] leading-relaxed text-[#2B2927] space-y-3 prose max-w-none"
+              set:html={projet.Description_contexte}
+            />
+          </section>
+
+          <!-- Section Problématique (Figma nodes: 340-1778, 340-1780) -->
+          <section>
+            <span class="block font-sans font-semibold text-[10px] sm:text-[11px] text-[#6F6A64] tracking-wider uppercase mb-1">
+              Problématique
+            </span>
+            <div
+              class="font-sans text-[15px] sm:text-[16px] leading-relaxed text-[#2B2927] space-y-3 prose max-w-none"
+              set:html={projet.Problematique}
+            />
+          </section>
+
+          <!-- Section Solution (Figma nodes: 340-1782, 340-1784, 340-1786) -->
+          <section>
+            <span class="block font-sans font-semibold text-[10px] sm:text-[11px] text-[#6F6A64] tracking-wider uppercase mb-1">
+              Solution
+            </span>
+            <h2 class="font-londrina font-normal text-[28px] sm:text-[36px] md:text-[40px] leading-[1.05] text-[#2B2927] mb-4">
+              {projet.Titre_solution}
+            </h2>
+            <div
+              class="solution-list font-sans text-[15px] sm:text-[16px] leading-relaxed text-[#2B2927]"
+              set:html={projet.Elements_solution}
+            />
+          </section>
+
+          <!-- Section Résultat (Figma nodes: 340-1833, 340-1835) -->
+          <section>
+            <h2 class="font-londrina font-normal text-[32px] sm:text-[40px] md:text-[44px] leading-[1.05] text-[#2B2927] mb-2">
+              Résultat
+            </h2>
+            <div
+              class="font-sans text-[15px] sm:text-[16px] leading-relaxed text-[#2B2927] space-y-3 prose max-w-none"
+              set:html={projet.Resultat}
+            />
+          </section>
+
+          <!-- Bouton Lien vers le projet (Figma node: 340-1837) -->
+          {projet.URL_resultat && (
+            <section class="pt-2">
+              <span class="block font-sans font-semibold text-[10px] sm:text-[11px] text-[#6F6A64] tracking-wider uppercase mb-3">
+                Lien
+              </span>
+              <a
+                href={projet.URL_resultat}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center px-6 py-2 rounded-full border border-marque-orange font-londrina font-normal text-[18px] sm:text-[20px] text-[#2B2927] hover:bg-marque-orange hover:text-surfaces-blanc transition-all"
+              >
+                Voir le projet
+              </a>
+            </section>
+          )}
+
+        </article>
+
+        <!-- Colonne Sidebar Droite (4 colonnes - Figma node: 340-1840) -->
+        <aside class="lg:col-span-4 bg-surfaces-blanc/40 p-6 sm:p-7 rounded-[12px] border border-bordures-subtiles/60 space-y-6 select-none">
+          
+          <!-- Rôle -->
+          <div>
+            <span class="block font-sans font-semibold text-[10px] sm:text-[11px] text-[#6F6A64] tracking-wider uppercase mb-1">
+              Rôle
+            </span>
+            <p class="font-sans text-[14px] text-[#2B2927]">
+              {projet.Role}
+            </p>
+          </div>
+
+          <!-- Outils & technologies -->
+          <div class="pt-5 border-t border-bordures-subtiles">
+            <span class="block font-sans font-semibold text-[10px] sm:text-[11px] text-[#6F6A64] tracking-wider uppercase mb-1">
+              Outils & technologies
+            </span>
+            <p class="font-sans text-[14px] text-[#2B2927]">
+              {projet.Technologies}
+            </p>
+          </div>
+
+          <!-- Compétences -->
+          <div class="pt-5 border-t border-bordures-subtiles">
+            <span class="block font-sans font-semibold text-[10px] sm:text-[11px] text-[#6F6A64] tracking-wider uppercase mb-1">
+              Compétences
+            </span>
+            <div
+              class="sidebar-list font-sans text-[14px] text-[#2B2927]"
+              set:html={projet.Competences}
+            />
+          </div>
+
+          <!-- Équipe -->
+          <div class="pt-5 border-t border-bordures-subtiles">
+            <span class="block font-sans font-semibold text-[10px] sm:text-[11px] text-[#6F6A64] tracking-wider uppercase mb-1">
+              Équipe
+            </span>
+            <p class="font-sans text-[14px] text-[#2B2927]">
+              {projet.Equipe}
+            </p>
+          </div>
+
+          <!-- Livrables -->
+          <div class="pt-5 border-t border-bordures-subtiles">
+            <span class="block font-sans font-semibold text-[10px] sm:text-[11px] text-[#6F6A64] tracking-wider uppercase mb-1">
+              Livrables
+            </span>
+            <div
+              class="sidebar-list font-sans text-[14px] text-[#2B2927]"
+              set:html={projet.Livrables}
+            />
+          </div>
+
+        </aside>
+
+      </div>
+
+      <!-- Lien Projet Suivant (Figma node: 340-1916) -->
+      <nav class="border-t border-bordures-subtiles pt-8 mt-14 sm:mt-20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4" aria-label="Navigation entre projets">
+        <a
+          href="/#projets"
+          class="font-londrina font-normal text-[18px] sm:text-[20px] text-[#6F6A64] hover:text-marque-orange transition-colors"
+        >
+          ← Retour aux réalisations
+        </a>
+
+        {nextProject && (
+          <a
+            href={`/projets/${nextProject.id}`}
+            class="font-londrina font-normal text-[22px] sm:text-[28px] md:text-[30px] text-marque-orange hover:opacity-85 transition-opacity"
+          >
+            Projet suivant — {nextProject.Nom_projet} →
+          </a>
+        )}
+      </nav>
+
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* Mise en forme de la liste avec coches oranges pour les solutions */
+  .solution-list :global(ul) {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .solution-list :global(li) {
+    position: relative;
+    padding-left: 1.75rem;
+  }
+  .solution-list :global(li::before) {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--color-marque-orange, #fa855a);
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  /* Mise en forme des listes à puces de la sidebar */
+  .sidebar-list :global(ul) {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .sidebar-list :global(li) {
+    position: relative;
+    padding-left: 1rem;
+  }
+  .sidebar-list :global(li::before) {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--color-marque-orange, #fa855a);
+  }
+  .sidebar-list :global(p) {
+    margin-bottom: 0.25rem;
+  }
+</style>
+

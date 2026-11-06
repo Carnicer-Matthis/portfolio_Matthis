@@ -1,0 +1,71 @@
+---
+// Carte projet réutilisable (Figma: ProjectCard 340-1564)
+import { formatNumero, projectImageUrl, type ProjectRecord } from '../lib/pocketbase';
+
+interface Props {
+  projet: ProjectRecord;
+}
+
+const { projet } = Astro.props;
+const numFormatted = formatNumero(projet.Numero);
+const imageUrl = projectImageUrl(projet);
+const href = `/projets/${projet.id}`;
+---
+
+<article class="flex flex-col h-full group select-none max-w-md mx-auto sm:max-w-none w-full">
+
+  <!-- Vignette Effet Sticker avec aspect ratio 16/10 fixe sans déformation -->
+  <a
+    href={href}
+    class="w-full aspect-[16/10] rounded-[12px] group-hover:shadow-[0_10px_20px_rgba(0,0,0,0.18)] transition-all overflow-hidden flex items-center justify-center"
+  >
+    {imageUrl ? (
+      <img
+        src={imageUrl}
+        alt={`Vignette du projet ${projet.Nom_projet}`}
+        loading="lazy"
+        class="w-full h-full object-cover rounded-[12px] group-hover:scale-[1.02] transition-transform duration-300"
+      />
+    ) : (
+      <div class="w-full h-full bg-neutres-blanc-casse rounded-[8px] flex flex-col items-center justify-center p-4 text-center">
+        <span class="font-londrina text-3xl sm:text-4xl text-marque-orange">{projet.Nom_projet}</span>
+        <span class="font-mono text-xs text-texte-secondaire mt-1">Image à venir</span>
+      </div>
+    )}
+  </a>
+
+  <!-- Titre et Numéro -->
+  <div class="flex items-baseline justify-between mt-4 sm:mt-5 mb-2">
+    <a href={href} class="hover:underline">
+      <h3 class="font-londrina font-normal text-[26px] sm:text-[30px] md:text-[32px] leading-none text-neutres-gris-fonce group-hover:text-marque-orange transition-colors">
+        {projet.Nom_projet}
+      </h3>
+    </a>
+    <span class="font-mono text-[11px] text-[#6F6A64] tracking-widest uppercase">
+      {numFormatted}
+    </span>
+  </div>
+
+  <!-- Badge Parcours -->
+  <div class="mb-2.5 sm:mb-3">
+    <span class="inline-flex items-center px-3 py-0.5 rounded-full text-[11px] font-sans font-medium bg-marque-orange/20 text-neutres-gris-fonce">
+      {projet.Parcours}
+    </span>
+  </div>
+
+  <!-- Titre Contexte -->
+  <p class="text-[13px] leading-[1.4] text-neutres-gris-fonce/85 line-clamp-2 mb-5 sm:mb-6">
+    {projet.Titre_contexte || projet.Sous_titre}
+  </p>
+
+  <!-- Bouton Voir le projet -->
+  <div class="mt-auto pt-2">
+    <a
+      href={href}
+      class="inline-flex items-center justify-center px-5 py-1.5 rounded-full border border-marque-orange font-londrina font-normal text-[18px] sm:text-[20px] text-neutres-gris-fonce hover:bg-marque-orange hover:text-surfaces-blanc transition-all"
+    >
+      Voir le projet
+    </a>
+  </div>
+
+</article>

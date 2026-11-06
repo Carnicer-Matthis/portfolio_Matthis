@@ -1,39 +1,14 @@
 ---
-const PB_URL = 'http://127.0.0.1:8090';
+// Section Réalisations de l'accueil : affiche les 3 premiers projets
+import ProjectCard from './ProjectCard.astro';
+import { getProjects } from '../lib/pocketbase';
 
-export interface ProjectRecord {
-  id: string;
-  collectionId: string;
-  Numero: number;
-  Nom_projet: string;
-  Sous_titre: string;
-  Parcours: string;
-  Titre_contexte: string;
-  Image_projet?: string;
-  [key: string]: any;
-}
-
-let projects: ProjectRecord[] = [];
-
-try {
-  const res = await fetch(`${PB_URL}/api/collections/Projet/records?sort=Numero`, {
-    signal: AbortSignal.timeout(2000)
-  });
-  if (res.ok) {
-    const data = await res.json();
-    if (data.items && data.items.length > 0) {
-      projects = data.items;
-    }
-  }
-} catch (error) {
-  console.warn("PocketBase non joignable, utilisation des données de secours.");
-}
-
+const projects = (await getProjects()).slice(0, 3);
 ---
 
 <section id="projets" class="w-full bg-neutres-blanc-casse py-16 sm:py-20 md:py-24 border-b border-bordures-subtiles">
   <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-16">
-    
+
     <!-- En-tête de Section (Figma node: 340-987) -->
     <div class="mb-8 sm:mb-12 md:mb-14">
       <h2 class="font-londrina font-normal text-[38px] sm:text-[54px] md:text-[64px] lg:text-[72px] leading-tight text-neutres-gris-fonce">
@@ -44,78 +19,13 @@ try {
 
     <!-- Grille des Cartes Projets Responsive (1 col mobile, 2 col tablette, 3 col desktop) -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
-      {projects.map((projet) => {
-        const numFormatted = String(projet.Numero).padStart(2, '0');
-        const imageUrl = projet.Image_projet
-          ? `${PB_URL}/api/files/${projet.collectionId}/${projet.id}/${projet.Image_projet}`
-          : null;
-
-        return (
-          <article class="flex flex-col h-full group select-none max-w-md mx-auto sm:max-w-none w-full">
-            
-            <!-- Vignette Effet Sticker avec aspect ratio 16/10 fixe sans déformation -->
-            <a
-              href={`/projets/${projet.id}`}
-              class="w-full aspect-[16/10] rounded-[12px] group-hover:shadow-[0_10px_20px_rgba(0,0,0,0.18)] transition-all overflow-hidden flex items-center justify-center block"
-            >
-              {imageUrl ? (
-                <img
-                  src={imageUrl}
-                  alt={`Vignette du projet ${projet.Nom_projet}`}
-                  loading="lazy"
-                  class="w-full h-full object-cover rounded-[12px] group-hover:scale-[1.02] transition-transform duration-300"
-                />
-              ) : (
-                <div class="w-full h-full bg-neutres-blanc-casse rounded-[8px] flex flex-col items-center justify-center p-4 text-center">
-                  <span class="font-londrina text-3xl sm:text-4xl text-marque-orange">{projet.Nom_projet}</span>
-                  <span class="font-mono text-xs text-texte-secondaire mt-1">Image à venir</span>
-                </div>
-              )}
-            </a>
-
-            <!-- Titre et Numéro (Figma nodes: 340-1068, 340-1071) -->
-            <div class="flex items-baseline justify-between mt-4 sm:mt-5 mb-2">
-              <a href={`/projets/${projet.id}`} class="hover:underline">
-                <h3 class="font-londrina font-normal text-[26px] sm:text-[30px] md:text-[32px] leading-none text-neutres-gris-fonce group-hover:text-marque-orange transition-colors">
-                  {projet.Nom_projet}
-                </h3>
-              </a>
-              <span class="font-mono text-[11px] text-[#6F6A64] tracking-widest uppercase">
-                {numFormatted}
-              </span>
-            </div>
-
-            <!-- Badge Parcours (Figma node: 340-1073) -->
-            <div class="mb-2.5 sm:mb-3">
-              <span class="inline-flex items-center px-3 py-0.5 rounded-full text-[11px] font-sans font-medium bg-marque-orange/20 text-neutres-gris-fonce">
-                {projet.Parcours}
-              </span>
-            </div>
-
-            <!-- Titre Contexte (Figma node: 340-1077) -->
-            <p class="text-[13px] leading-[1.4] text-neutres-gris-fonce/85 line-clamp-2 mb-5 sm:mb-6">
-              {projet.Titre_contexte || projet.Sous_titre}
-            </p>
-
-            <!-- Bouton Voir le projet (Figma node: 340-1080) -->
-            <div class="mt-auto pt-2">
-              <a
-                href={`/projets/${projet.id}`}
-                class="inline-flex items-center justify-center px-5 py-1.5 rounded-full border border-marque-orange font-londrina font-normal text-[18px] sm:text-[20px] text-neutres-gris-fonce hover:bg-marque-orange hover:text-surfaces-blanc transition-all"
-              >
-                Voir le projet
-              </a>
-            </div>
-
-          </article>
-        );
-      })}
+      {projects.map((projet) => <ProjectCard projet={projet} />)}
     </div>
 
     <!-- Bouton Tous les Projets (Figma node: 340-1178) -->
     <div class="mt-12 sm:mt-14 md:mt-16 flex justify-center">
       <a
-        href="#tous-les-projets"
+        href="/projets"
         class="inline-flex items-center justify-center px-6 py-2 rounded-full border border-bordures-subtiles font-londrina font-normal text-[18px] sm:text-[20px] text-neutres-gris-fonce hover:border-marque-orange hover:text-marque-orange transition-all"
       >
         Tous les Projets

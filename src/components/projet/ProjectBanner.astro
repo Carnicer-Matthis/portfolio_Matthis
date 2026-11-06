@@ -1,0 +1,37 @@
+---
+// Bandeau sombre en haut de la page détail (Figma node: 340-1748)
+import { formatNumero, type ProjectRecord } from '../../lib/pocketbase';
+
+interface Props {
+  projet: ProjectRecord;
+}
+
+const { projet } = Astro.props;
+---
+
+<section class="w-full bg-neutres-gris-fonce rounded-sm px-6 sm:px-8 py-6 flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+  <div class="flex flex-wrap items-end gap-x-6 gap-y-1">
+    <span class="font-londrina font-normal text-[48px] sm:text-[60px] leading-none text-marque-orange">
+      {formatNumero(projet.Numero)}
+    </span>
+    <h1 class="font-londrina font-normal text-[40px] sm:text-[56px] leading-none text-[#F4F1EE]">
+      {projet.Nom_projet}
+    </h1>
+    <span class="font-sans text-[14px] leading-5 text-[#F4F1EE]/70 pb-1">
+      {projet.Sous_titre}
+    </span>
+  </div>
+
+  <div class="flex items-center gap-6 md:ml-auto shrink-0">
+    <span class="font-sans text-[14px] leading-5 text-[#F4F1EE]">
+      {projet.Parcours}
+    </span>
+    <a
+      href="#details"
+      class="size-10 rounded-full border-[0.8px] border-[#F4F1EE]/70 flex items-center justify-center font-sans text-[16px] text-[#F4F1EE] hover:border-marque-orange hover:text-marque-orange transition-colors"
+      aria-label="Défiler vers le contenu"
+    >
+      ↓
+    </a>
+  </div>
+</section>

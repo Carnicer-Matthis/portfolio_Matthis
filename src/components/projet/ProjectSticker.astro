@@ -1,0 +1,28 @@
+---
+// Image avec effet sticker : cadre blanc, ombre, coins irréguliers (Figma node: 340-1767)
+interface Props {
+  src: string | null;
+  alt: string;
+}
+
+const { src, alt } = Astro.props;
+---
+
+<div class="sticker w-full max-w-215 bg-surfaces-blanc p-1.5 drop-shadow-[0_6px_7px_rgba(0,0,0,0.18)]">
+  {src ? (
+    <img src={src} alt={alt} class="sticker-img w-full aspect-[551/310] object-cover" />
+  ) : (
+    <div class="sticker-img w-full aspect-[551/310] bg-neutres-blanc-casse flex items-center justify-center">
+      <span class="font-londrina text-4xl text-marque-orange">{alt}</span>
+    </div>
+  )}
+</div>
+
+<style>
+  .sticker {
+    border-radius: 6px 10px 5px 12px;
+  }
+  .sticker-img {
+    border-radius: 3px 7px 3px 9px;
+  }
+</style>

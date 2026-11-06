@@ -1,0 +1,68 @@
+// Données de secours utilisées si PocketBase est indisponible au build
+import type { ProjectRecord } from '../lib/pocketbase';
+
+export const fallbackProjects: ProjectRecord[] = [
+  {
+    id: "1zje4st8n7elkvj",
+    collectionId: "pbc_1621812433",
+    Numero: 1,
+    Nom_projet: "Odysignes",
+    Sous_titre: "Plateforme LSF gamifiée",
+    Parcours: "Développement web",
+    Titre_contexte: "Une plateforme pour apprendre la LSF avec plaisir",
+    Description_contexte: "Une application web éducative et gamifiée pour apprendre la LSF. Odysignes est une application web conçue pour rendre l'apprentissage de la langue des signes française (LSF) accessible et ludique. Le projet combine des mécaniques de gamification et des outils pratiques pour transformer la pratique en une expérience interactive.",
+    Problematique: "Rendre l'apprentissage de la LSF engageant tout en construisant une stratégie de lancement solide. Les apprenants recherchent une approche dynamique plutôt qu'une simple mémorisation, avec un besoin d'accéder rapidement à des traductions. En parallèle, il fallait concevoir une stratégie de communication complète.",
+    Titre_solution: "Une plateforme technique ajoutée à une communication structurée",
+    Elements_solution: "<ul><li>Prise en charge d'une grande partie du développement global de l'application web (interface et logique back-end).</li><li>Intégration d'un dictionnaire LSF complet, débloqué dès la première utilisation pour permettre aux utilisateurs de faire des recherches et des traductions rapides.</li><li>Participation active à l'élaboration et à la rédaction des dossiers de communication du projet.</li></ul>",
+    Role: "Développeur / Assistant communication",
+    Technologies: "Astro, Tailwind CSS, PocketBase",
+    Competences: "<ul><li>Développement Front-end & Back-end</li><li>Architecture de base de données</li><li>Stratégie de communication</li></ul>",
+    Equipe: "3 personnes",
+    Livrables: "<ul><li>Application web interactive</li><li>Base de données</li><li>Dossiers de communication</li><li>Maquettes / Prototypes</li></ul>",
+    Resultat: "Un projet universitaire complet et fonctionnel, alliant une expérience utilisateur fluide à une stratégie de visibilité.",
+    URL_resultat: "",
+    Image_projet: "sticker_odysigne_arxo3miu5n.webp"
+  },
+  {
+    id: "ed8dmo5r4m4vai0",
+    collectionId: "pbc_1621812433",
+    Numero: 2,
+    Nom_projet: "C’est Ma Cam’",
+    Sous_titre: "Agence de communication fictive",
+    Parcours: "Communication",
+    Titre_contexte: "Création d'une agence de communication (SAÉ 106)",
+    Description_contexte: "« C'est Ma Cam' » est une agence de communication numérique fictive développée lors d'une SAÉ du BUT MMI. Le projet exigeait de concevoir une structure professionnelle complète, particulièrement en phase avec les tendances actuelles liées à l'éco-conception.",
+    Problematique: "Le défi consistait à définir la structure juridique, implanter l'agence dans un écosystème d'innovation et chiffrer un budget global prévisionnel. Il fallait en parallèle concevoir l'identité de l'agence et prouver sa rentabilité face à de futurs clients et investisseurs.",
+    Titre_solution: "Une conception alliant stratégie et numérique",
+    Elements_solution: "<ul><li>Analyse des règles du site de certification Opquast et positionnement SEO lié à l'éco-conception.</li><li>Création de l'identité visuelle de l'agence et production des visuels destinés aux réseaux sociaux pour appuyer une stratégie internationale.</li><li>Élaboration d'un dossier client complet et d'un dossier investisseur.</li><li>Justification argumentée de la forme juridique et du local professionnel, intégrée dans un plan budgétaire annuel.</li></ul>",
+    Role: "Cofondateur",
+    Technologies: "Figma, Outil de gestion de projet",
+    Competences: "<ul><li>Gestion de projet numérique</li><li>Sensibilisation à l'éco-conception</li><li>Stratégie d'entreprise & budgétisation</li><li>Soutenance en anglais</li></ul>",
+    Equipe: "3 personnes",
+    Livrables: "<ul><li>Dossier complet</li><li>Dossier client et dossier investisseur</li><li>Budget global annuel</li><li>Visuels de promotion</li></ul>",
+    Resultat: "Une structure d'agence chiffrée et documentée.",
+    URL_resultat: "",
+    Image_projet: "sticker_cmc_jqmqsw5wzg.webp"
+  },
+  {
+    id: "brrmaim36gff127",
+    collectionId: "pbc_1621812433",
+    Numero: 3,
+    Nom_projet: "Olyvia!",
+    Sous_titre: "Site WordPress conçu pour accompagner les femmes sur la ménopause",
+    Parcours: "Communication / design",
+    Titre_contexte: "Accompagner les femmes à travers une plateforme bienveillante",
+    Description_contexte: "Projet de conception d'un site web sous WordPress dédié à l'information et au soutien des femmes durant la ménopause.",
+    Problematique: "Déconstruire les tabous et offrir des ressources fiables, accessibles et rassurantes à travers une interface chaleureuse et moderne.",
+    Titre_solution: "Un espace d'information et d'échange sur mesure",
+    Elements_solution: "<ul><li>Conception de l'architecture de l'information et des parcours utilisateurs.</li><li>Intégration d'un thème WordPress personnalisé et responsive.</li><li>Création d'une identité visuelle rassurante et accessible.</li></ul>",
+    Role: "Designer UI/UX & Intégrateur WordPress",
+    Technologies: "WordPress, Figma, CSS3",
+    Competences: "<ul><li>Design d'interface UI/UX</li><li>Intégration CMS WordPress</li><li>Rédaction & vulgarisation de contenu</li></ul>",
+    Equipe: "Projet en équipe",
+    Livrables: "<ul><li>Site WordPress en ligne</li><li>Guide de style & maquettes Figma</li><li>Charte éditoriale</li></ul>",
+    Resultat: "Un site web complet, empathique et simple d'utilisation pour le public cible.",
+    URL_resultat: "",
+    Image_projet: "sticker_olyvia_wlgt7o3aqg.webp"
+  }
+];

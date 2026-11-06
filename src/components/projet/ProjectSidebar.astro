@@ -1,0 +1,49 @@
+---
+// Colonne d'infos à droite de la page détail (Figma node: 340-1840)
+import { toListHtml, type ProjectRecord } from '../../lib/pocketbase';
+
+interface Props {
+  projet: ProjectRecord;
+}
+
+const { projet } = Astro.props;
+
+// html: true → le champ PocketBase contient une liste <ul> (éditeur riche)
+const infos = [
+  { label: 'Rôle', value: projet.Role, html: false },
+  { label: 'Outils & technologies', value: projet.Technologies, html: false },
+  { label: 'Compétences', value: toListHtml(projet.Competences), html: true },
+  { label: 'Équipe', value: projet.Equipe, html: false },
+  { label: 'Livrables', value: toListHtml(projet.Livrables), html: true },
+].filter((info) => info.value);
+---
+
+<aside class="flex flex-col gap-6">
+  {infos.map((info) => (
+    <div>
+      <p class="font-sans font-semibold text-[10px] leading-[15px] tracking-[1.8px] uppercase text-[#6F6A64]">
+        {info.label}
+      </p>
+      {info.html ? (
+        <div class="info-list mt-1.5 font-sans text-[14px] leading-5 text-[#2B2927]" set:html={info.value} />
+      ) : (
+        <p class="mt-1.5 font-sans text-[14px] leading-5 text-[#2B2927]">{info.value}</p>
+      )}
+    </div>
+  ))}
+</aside>
+
+<style>
+  /* Listes à puces "• Élément" */
+  .info-list :global(ul) {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .info-list :global(li::before) {
+    content: '• ';
+  }
+</style>

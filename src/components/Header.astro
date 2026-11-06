@@ -3,7 +3,8 @@ interface Props {
   active?: 'accueil' | 'projets' | 'a-propos' | 'contact';
 }
 
-const { active = 'accueil' } = Astro.props;
+// Aucun lien surligné si "active" n'est pas fourni (ex : mentions légales)
+const { active } = Astro.props;
 
 const navLinks = [
   { id: 'accueil', name: 'Accueil', href: '/' },

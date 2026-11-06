@@ -1,0 +1,117 @@
+---
+// Page Mentions légales (Figma node: 344-1193)
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const editeur = [
+  'Propriétaire et Créateur : Carnicer Matthis',
+  'Adresse de contact : 6 rue Kléber, 90700, Châtenois-les-Forges',
+  'Email : matthiscarnicer@gmail.com',
+  'Téléphone : 0749778484',
+  'Directeur de la publication : Carnicer Matthis',
+];
+
+// À compléter quand le site sera en ligne
+const hebergement = {
+  url: '(URL du site)',
+  infos: ["Adresse de l'hébergeur :", "Contact de l'hébergeur :"],
+};
+
+const donneesFormulaire = [
+  'Prénom : pour personnaliser les réponses.',
+  'Adresse email : pour communiquer avec vous.',
+  'Contenu du message : pour traiter votre demande.',
+];
+---
+
+<Layout title="Mentions légales — Matthis Carnicer">
+  <Header />
+
+  <main class="w-full bg-neutres-blanc-casse">
+    <!-- Même conteneur que le header, texte limité à 820px (Figma node: 344-1194) -->
+    <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-16 pt-12 sm:pt-16 pb-20 lg:pb-28">
+      <div class="max-w-205">
+
+        <h1 class="font-londrina font-normal text-[52px] sm:text-[72px] md:text-[88px] leading-[0.9] text-neutres-gris-fonce">
+          Mentions légales
+        </h1>
+        <div class="w-20 sm:w-24 h-0.75 bg-marque-orange rounded-full mt-3"></div>
+
+        <!-- 1. Éditeur du site -->
+        <h2 class="title">1. Éditeur du site</h2>
+        <p class="text mt-3">
+          En vertu de l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique,
+          il est précisé aux utilisateurs du site l'identité des différents intervenants dans le cadre de sa réalisation
+          et de son suivi :
+        </p>
+        <ul class="list">
+          {editeur.map((item) => <li>{item}</li>)}
+        </ul>
+
+        <!-- 2. Hébergement -->
+        <h2 class="title">2. Hébergement</h2>
+        <p class="text mt-3">Le site {hebergement.url} est hébergé par la société :</p>
+        <ul class="list">
+          {hebergement.infos.map((item) => <li>{item}</li>)}
+        </ul>
+
+        <!-- 3. Propriété intellectuelle et contrefaçons -->
+        <h2 class="title">3. Propriété intellectuelle et contrefaçons</h2>
+        <p class="text mt-3">
+          Sauf indication contraire, Carnicer Matthis détient l'exclusivité des droits de propriété intellectuelle et
+          d'utilisation relatifs à l'ensemble des contenus de ce site (textes, photographies, illustrations, logos,
+          vidéos, structure et icônes). Par conséquent, il est formellement interdit de reproduire, représenter, modifier,
+          publier ou adapter tout ou partie de ces éléments, par quelque procédé que ce soit, sans l'accord écrit et
+          préalable de Carnicer Matthis.
+        </p>
+        <p class="text mt-2">
+          Toute exploitation non autorisée du site ou de son contenu sera qualifiée de contrefaçon et fera l'objet de
+          poursuites judiciaires, en application des articles L.335-2 et suivants du Code de la propriété intellectuelle.
+        </p>
+
+        <!-- Données collectées -->
+        <h2 class="title">Données collectées</h2>
+        <h3 class="mt-5 font-londrina font-normal text-[24px] leading-6 text-marque-orange">
+          Données personnelles fournies
+        </h3>
+        <p class="text mt-3">
+          Lorsque vous utilisez le <a href="/#contact" class="underline decoration-marque-orange underline-offset-2 hover:text-marque-orange">formulaire de contact</a>,
+          les données personnelles suivantes sont collectées :
+        </p>
+        <ul class="list">
+          {donneesFormulaire.map((item) => <li>{item}</li>)}
+        </ul>
+
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  @reference "../styles/global.css";
+
+  /* Titres de rubrique (Figma: Heading 2, 30px) */
+  .title {
+    @apply mt-10 font-londrina font-normal text-[26px] sm:text-[30px] leading-[1.1] text-neutres-gris-fonce;
+  }
+
+  /* Paragraphes */
+  .text {
+    @apply font-sans text-[15px] leading-[24.375px] text-[#2B2927];
+  }
+
+  /* Listes avec puce orange "·" (Figma: List) */
+  .list {
+    @apply mt-2 flex flex-col gap-1 font-sans text-[15px] leading-[24.375px] text-[#2B2927];
+  }
+  .list li {
+    @apply flex gap-2;
+  }
+  .list li::before {
+    content: '·';
+    @apply text-marque-orange;
+  }
+</style>

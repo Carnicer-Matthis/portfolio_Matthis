@@ -1,0 +1,99 @@
+---
+// Section Contact (Figma node: 340-1286)
+// L'envoi du formulaire vers PocketBase sera branché à l'étape suivante.
+---
+
+<section id="contact" class="w-full bg-neutres-blanc-casse pt-4 pb-16 sm:pb-20 md:pb-28">
+  <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6">
+
+      <!-- Colonne Gauche : Titre + texte (Figma node: 340-1287) -->
+      <div class="lg:col-span-5 flex flex-col">
+        <h2 class="font-londrina font-normal text-[44px] sm:text-[54px] md:text-t1 leading-none text-neutres-gris-fonce uppercase">
+          Contactez-moi
+        </h2>
+
+        <!-- Barre de séparation orange (Figma node: 340-1330) -->
+        <div class="w-20 sm:w-24 h-[3px] bg-marque-orange rounded-full mt-3"></div>
+
+        <!-- Paragraphe (Figma node: 340-1333) -->
+        <p class="font-sans text-[14px] leading-[20px] text-[#6F6A64] max-w-[320px] mt-6">
+          Un projet, une question, une idée à confronter ? Écrivez-moi, je réponds rapidement.
+        </p>
+      </div>
+
+      <!-- Colonne Droite : Formulaire (Figma node: 340-1336) -->
+      <form
+        id="contact-form"
+        class="lg:col-span-7 flex flex-col gap-4 p-6 bg-surfaces-blanc/50 border-[0.8px] border-[#D9D3CC] rounded-[10px]"
+      >
+        <!-- Prénom (Figma node: 340-1337) -->
+        <label class="flex flex-col gap-1">
+          <span class="font-sans font-semibold text-[12px] leading-4 tracking-[0.6px] uppercase text-[#6F6A64]">
+            Prénom
+          </span>
+          <input
+            type="text"
+            name="prenom"
+            required
+            autocomplete="given-name"
+            placeholder="Votre prénom ..."
+            class="field"
+          />
+        </label>
+
+        <!-- Email (Figma node: 340-1342) -->
+        <label class="flex flex-col gap-1">
+          <span class="font-sans font-semibold text-[12px] leading-4 tracking-[0.6px] uppercase text-[#6F6A64]">
+            Email
+          </span>
+          <input
+            type="email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="Votre email ..."
+            class="field"
+          />
+        </label>
+
+        <!-- Message (Figma node: 340-1347) -->
+        <label class="flex flex-col gap-1">
+          <span class="font-sans font-semibold text-[12px] leading-4 tracking-[0.6px] uppercase text-[#6F6A64]">
+            Message
+          </span>
+          <textarea
+            name="message"
+            required
+            rows="5"
+            placeholder="Votre message ..."
+            class="field h-[117.6px] resize-y"
+          ></textarea>
+        </label>
+
+        <!-- Bouton Envoyer (Figma node: 340-1353) -->
+        <div class="flex items-center">
+          <button
+            type="submit"
+            class="inline-flex items-center px-5 py-1.5 rounded-full bg-marque-orange font-londrina font-normal text-[20px] leading-7 text-surfaces-blanc hover:opacity-85 transition-opacity cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-marque-orange focus-visible:ring-offset-2"
+          >
+            Envoyer
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  @reference "../styles/global.css";
+
+  /* Style commun des champs (Figma: Text Input / Email Input / Text Area) */
+  .field {
+    @apply w-full bg-surfaces-blanc border-[0.8px] border-[#D9D3CC] rounded-[6px] px-3 py-2
+      font-sans text-[14px] leading-5 text-neutres-gris-fonce
+      placeholder:font-semibold placeholder:tracking-[0.6px] placeholder:text-[#6F6A64]/60
+      focus:outline-none focus:border-marque-orange focus:ring-1 focus:ring-marque-orange transition-colors;
+  }
+</style>

@@ -108,6 +108,20 @@
   --text-legende: var(--legende-taille);
   --text-legende--line-height: var(--legende-interligne);
   --text-legende--letter-spacing: var(--legende-approche);
+
+  /* Animation "scroll" du Hero (génère animate-scroll-hint) */
+  --animate-scroll-hint: scroll-hint 1.8s ease-in-out infinite;
+
+  @keyframes scroll-hint {
+    0%, 100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    50% {
+      transform: translateY(6px);
+      opacity: 0.5;
+    }
+  }
 }
 
 /* ===== Bases communes à tout le site ===== */

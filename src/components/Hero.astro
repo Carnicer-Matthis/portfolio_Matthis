@@ -69,8 +69,10 @@ import heroImage from '../assets/image_Hero.webp';
         aria-label="Faire défiler vers les projets"
       >
         <span>Scroll</span>
+        <!-- Flèche animée qui invite à descendre (pause au survol) -->
         <svg
-          class="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-y-1"
+          class="w-4 h-4 sm:w-5 sm:h-5 animate-scroll-hint group-hover:[animation-play-state:paused]"
+          aria-hidden="true"
           fill="none"
           stroke="currentColor"
           stroke-width="2"

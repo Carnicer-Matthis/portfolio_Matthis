@@ -88,6 +88,14 @@ const navLinks = [
       })}
     </nav>
   </div>
+
+  <!-- Barre de progression de lecture, posée sur la bordure basse du header (3px, recouvre le trait gris) -->
+  <div
+    id="scroll-progress"
+    aria-hidden="true"
+    class="absolute left-0 -bottom-px h-0.75 w-full origin-left bg-marque-orange"
+    style="scale: 0 1"
+  ></div>
 </header>
 
 <script>
@@ -113,5 +121,27 @@ const navLinks = [
         closeIcon.classList.add('hidden');
       });
     });
+  }
+
+  // Barre de progression : propriété CSS "scale" de 0 à 1 (axe X) selon la position de scroll.
+  // requestAnimationFrame = au plus une mise à jour par image, sans ralentir le scroll.
+  const progress = document.getElementById('scroll-progress');
+  if (progress) {
+    let ticking = false;
+    const update = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+      progress.style.scale = `${ratio} 1`;
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
   }
 </script>

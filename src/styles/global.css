@@ -109,6 +109,31 @@
   --text-legende--line-height: var(--legende-interligne);
   --text-legende--letter-spacing: var(--legende-approche);
 
+  /* Animations d'entrée du Hero (génèrent animate-hero-rise et animate-hero-fade-up).
+     "both" : l'élément reste caché pendant son délai, puis garde son état final. */
+  --animate-hero-rise: hero-rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-hero-fade-up: hero-fade-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+
+  @keyframes hero-rise {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes hero-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   /* Animation "scroll" du Hero (génère animate-scroll-hint) */
   --animate-scroll-hint: scroll-hint 1.8s ease-in-out infinite;
 
@@ -147,6 +172,15 @@
     text-wrap: pretty;
   }
 
+  /* Barre de défilement du navigateur masquée : la barre orange du header la remplace.
+     Le défilement reste possible (molette, trackpad, clavier, tactile). */
+  html {
+    scrollbar-width: none; /* Firefox */
+  }
+  html::-webkit-scrollbar {
+    display: none; /* Chrome, Edge, Safari */
+  }
+
   /* Le header sticky ne masque pas les ancres (#contact, #details...) */
   [id] {
     scroll-margin-top: 5rem;
@@ -159,6 +193,7 @@
     }
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
       transition-duration: 0.01ms !important;
     }
   }

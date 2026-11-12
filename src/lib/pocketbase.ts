@@ -25,6 +25,8 @@ export interface ProjectRecord {
   URL_resultat: string;
   Image_projet?: string;
   Image_detail?: string[];
+  /** Case à cocher dans PocketBase : projet affiché sur la page d'accueil. */
+  Accueil?: boolean;
 }
 
 /** Tous les projets triés par numéro. Données de secours si PocketBase est injoignable. */
@@ -44,6 +46,16 @@ export async function getProjects(): Promise<ProjectRecord[]> {
   return fallbackProjects;
 }
 
+/**
+ * Les 3 projets de la page d'accueil : ceux cochés "Accueil" dans PocketBase.
+ * Si aucun n'est coché, on prend les 3 premiers.
+ */
+export async function getHomeProjects(limit = 3): Promise<ProjectRecord[]> {
+  const projects = await getProjects();
+  const selection = projects.filter((projet) => projet.Accueil);
+  return (selection.length ? selection : projects).slice(0, limit);
+}
+
 function fileUrl(projet: ProjectRecord, file: string): string {
   return `${PB_URL}/api/files/${projet.collectionId}/${projet.id}/${file}`;
 }
@@ -53,10 +65,9 @@ export function projectImageUrl(projet: ProjectRecord): string | null {
   return projet.Image_projet ? fileUrl(projet, projet.Image_projet) : null;
 }
 
-/** Image haute qualité de la page détail (Image_detail), sinon la vignette. */
-export function projectDetailImageUrl(projet: ProjectRecord): string | null {
-  const file = projet.Image_detail?.[0] || projet.Image_projet;
-  return file ? fileUrl(projet, file) : null;
+/** Toutes les images détail d'un projet (champ multi-fichiers Image_detail). */
+export function projectDetailImageUrls(projet: ProjectRecord): string[] {
+  return (projet.Image_detail ?? []).map((file) => fileUrl(projet, file));
 }
 
 /**
@@ -78,7 +89,3 @@ export function toListHtml(html: string | undefined): string {
   return `<ul>${list.map((item) => `<li>${item}</li>`).join('')}</ul>`;
 }
 
-/** Numéro sur deux chiffres : 1 → "01". */
-export function formatNumero(numero: number): string {
-  return String(numero).padStart(2, '0');
-}

@@ -25,10 +25,13 @@ const donneesFormulaire = [
 ];
 ---
 
-<Layout title="Mentions légales — Matthis Carnicer">
+<Layout
+  title="Mentions légales — Matthis Carnicer"
+  description="Mentions légales du portfolio de Matthis Carnicer : éditeur, hébergement, propriété intellectuelle et données personnelles."
+>
   <Header />
 
-  <main class="w-full bg-neutres-blanc-casse">
+  <main id="contenu" class="w-full bg-neutres-blanc-casse">
     <!-- Même conteneur que le header, texte limité à 820px (Figma node: 344-1194) -->
     <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-16 pt-12 sm:pt-16 pb-20 lg:pb-28">
       <div class="max-w-205">
@@ -100,12 +103,12 @@ const donneesFormulaire = [
 
   /* Paragraphes */
   .text {
-    @apply font-sans text-[15px] leading-[24.375px] text-[#2B2927];
+    @apply font-sans text-[15px] leading-[24.375px] text-texte-principal;
   }
 
   /* Listes avec puce orange "·" (Figma: List) */
   .list {
-    @apply mt-2 flex flex-col gap-1 font-sans text-[15px] leading-[24.375px] text-[#2B2927];
+    @apply mt-2 flex flex-col gap-1 font-sans text-[15px] leading-[24.375px] text-texte-principal;
   }
   .list li {
     @apply flex gap-2;

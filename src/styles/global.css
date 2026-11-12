@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@300;400;900&display=swap');
+/* Les polices (Londrina Solid + Instrument Sans) sont chargées dans Layout.astro via <link>,
+   plus rapide qu'un @import qui bloque le rendu en chaîne. */
 @import "tailwindcss";
 
 /* Couleurs & Typographie Figma */
@@ -8,6 +9,10 @@
   --marque-orange: #fa855a;
   --neutres-blanc-casse: #f3f0ee;
   --neutres-gris-fonce: #514e4c;
+  --texte-principal: #2b2927;   /* paragraphes */
+  --texte-attenue: #6f6a64;     /* légendes, étiquettes */
+  --bordures-claires: #d9d3cc;  /* champs, séparateurs */
+  --neutres-creme: #f4f1ee;     /* texte sur fond sombre */
   --neutres-noir: #000000;
   --surfaces-blanc: #ffffff;
   --texte-secondaire: #9e9b99;
@@ -49,6 +54,7 @@
   --graisse-light: 300;
   --graisse-regular: 400;
   --police-londrina: 'Londrina Solid', sans-serif;
+  --police-instrument: 'Instrument Sans', system-ui, sans-serif;
 }
 
 /* Configuration du Thème Tailwind CSS */
@@ -61,9 +67,14 @@
   --color-neutres-noir: var(--neutres-noir);
   --color-surfaces-blanc: var(--surfaces-blanc);
   --color-texte-secondaire: var(--texte-secondaire);
+  --color-texte-principal: var(--texte-principal);
+  --color-texte-attenue: var(--texte-attenue);
+  --color-bordures-claires: var(--bordures-claires);
+  --color-neutres-creme: var(--neutres-creme);
 
-  /* Police (génère font-londrina) */
+  /* Polices : font-londrina (titres) et font-sans (textes, Instrument Sans de la maquette) */
   --font-londrina: var(--police-londrina);
+  --font-sans: var(--police-instrument);
 
   /* Tailles typographiques avec interligne et approche */
   --text-display: var(--display-taille);
@@ -97,4 +108,44 @@
   --text-legende: var(--legende-taille);
   --text-legende--line-height: var(--legende-interligne);
   --text-legende--letter-spacing: var(--legende-approche);
+}
+
+/* ===== Bases communes à tout le site ===== */
+@layer base {
+  /* Focus clavier visible et homogène (accessibilité) */
+  :focus-visible {
+    outline: 2px solid var(--marque-orange);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Sélection de texte aux couleurs du site */
+  ::selection {
+    background-color: rgb(250 133 90 / 0.3);
+    color: var(--texte-principal);
+  }
+
+  /* Titres : retours à la ligne équilibrés, paragraphes sans mot orphelin */
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Le header sticky ne masque pas les ancres (#contact, #details...) */
+  [id] {
+    scroll-margin-top: 5rem;
+  }
+
+  /* Respect du réglage "réduire les animations" du système */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto !important;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }

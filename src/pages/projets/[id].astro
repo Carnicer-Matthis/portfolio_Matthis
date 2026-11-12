@@ -4,9 +4,9 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import ProjectBanner from '../../components/projet/ProjectBanner.astro';
-import ProjectSticker from '../../components/projet/ProjectSticker.astro';
+import ProjectImage from '../../components/projet/ProjectImage.astro';
 import ProjectSidebar from '../../components/projet/ProjectSidebar.astro';
-import { getProjects, projectDetailImageUrl, toListHtml, type ProjectRecord } from '../../lib/pocketbase';
+import { getProjects, projectImageUrl, toListHtml, type ProjectRecord } from '../../lib/pocketbase';
 
 export async function getStaticPaths() {
   const projects = await getProjects();
@@ -25,26 +25,24 @@ interface Props {
 const { projet, nextProject } = Astro.props;
 ---
 
-<Layout title={`${projet.Nom_projet} — Matthis Carnicer`}>
+<Layout
+  title={`${projet.Nom_projet} — ${projet.Sous_titre} | Matthis Carnicer`}
+  description={`${projet.Titre_contexte}. Projet ${projet.Parcours.toLowerCase()} réalisé par Matthis Carnicer : contexte, rôle, solution et résultat.`}
+>
   <Header active="projets" />
 
-  <main class="w-full bg-neutres-blanc-casse">
+  <main id="contenu" class="w-full bg-neutres-blanc-casse">
     <!-- Même conteneur que le header : du logo jusqu'au lien Contact (Figma node: 340-1744) -->
     <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-16 pt-10 pb-20 lg:pb-28">
 
-      <a href="/projets" class="font-londrina text-[20px] leading-7 text-marque-orange hover:opacity-80 transition-opacity">
-        ← Explorations & Chantiers
-      </a>
-
-      <div class="mt-4">
-        <ProjectBanner projet={projet} />
-      </div>
+      <ProjectBanner projet={projet} />
 
       <!-- Grille 8 / 4 colonnes (Figma node: 340-1765) -->
       <div id="details" class="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-16 scroll-mt-20">
 
-        <article class="lg:col-span-8 lg:pr-10 xl:pr-16 lg:border-r-[0.8px] lg:border-[#D9D3CC]">
-          <ProjectSticker src={projectDetailImageUrl(projet)} alt={projet.Nom_projet} />
+        <article class="lg:col-span-8 lg:pr-10 xl:pr-16 lg:border-r-[0.8px] lg:border-bordures-claires">
+          <!-- Image principale (Image_projet) ; les images détail sont dans la sidebar -->
+          <ProjectImage src={projectImageUrl(projet)} alt={projet.Nom_projet} />
 
           <!-- Largeur de lecture confortable, qui suit l'image -->
           <div class="max-w-215">
@@ -78,13 +76,13 @@ const { projet, nextProject } = Astro.props;
           </div>
         </article>
 
-        <div class="lg:col-span-4 pt-8 border-t-[0.8px] border-[#D9D3CC] lg:pt-0 lg:border-t-0">
+        <div class="lg:col-span-4 pt-8 border-t-[0.8px] border-bordures-claires lg:pt-0 lg:border-t-0">
           <ProjectSidebar projet={projet} />
         </div>
       </div>
 
       <!-- Projet suivant (Figma node: 340-1910) -->
-      <nav class="mt-16 pt-6 border-t-[0.8px] border-[#D9D3CC] flex justify-end" aria-label="Navigation entre projets">
+      <nav class="mt-16 pt-6 border-t-[0.8px] border-bordures-claires flex justify-end" aria-label="Navigation entre projets">
         <a
           href={`/projets/${nextProject.id}`}
           class="font-londrina text-[24px] sm:text-[30px] leading-9 text-marque-orange text-right hover:opacity-80 transition-opacity"
@@ -104,7 +102,7 @@ const { projet, nextProject } = Astro.props;
 
   /* Petites étiquettes en capitales : CONTEXTE, PROBLÉMATIQUE... */
   .label {
-    @apply font-sans font-semibold text-[10px] leading-3.75 tracking-[1.8px] uppercase text-[#6F6A64];
+    @apply font-sans font-semibold text-[10px] leading-3.75 tracking-[1.8px] uppercase text-texte-attenue;
   }
 
   /* Titres Londrina */
@@ -117,7 +115,7 @@ const { projet, nextProject } = Astro.props;
 
   /* Paragraphes (contenu PocketBase) */
   .text {
-    @apply font-sans text-[15px] leading-[24.375px] xl:text-[16px] xl:leading-[26px] text-[#2B2927];
+    @apply font-sans text-[15px] leading-[24.375px] xl:text-[16px] xl:leading-[26px] text-texte-principal;
   }
   .text :global(p + p) {
     margin-top: 0.75rem;
@@ -137,7 +135,7 @@ const { projet, nextProject } = Astro.props;
     padding-left: 32px;
     font-size: 15px;
     line-height: 20.625px;
-    color: #2b2927;
+    color: var(--texte-principal);
   }
   .solution-list :global(li::before) {
     content: '✓';

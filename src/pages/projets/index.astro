@@ -17,10 +17,13 @@ const filters = [
 ];
 ---
 
-<Layout title="Mes projets — Matthis Carnicer">
+<Layout
+  title="Mes projets — Matthis Carnicer"
+  description="Toutes les réalisations de Matthis Carnicer : communication, design et développement web. Contexte, recherches et résultat de chaque projet."
+>
   <Header active="projets" />
 
-  <main class="w-full bg-neutres-blanc-casse pt-12 sm:pt-16 pb-20 sm:pb-28">
+  <main id="contenu" class="w-full bg-neutres-blanc-casse pt-12 sm:pt-16 pb-20 sm:pb-28">
     <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-16">
 
       <!-- Titre (Figma node: 340-1457) -->
@@ -30,11 +33,11 @@ const filters = [
       <div class="w-20 sm:w-24 h-0.75 bg-marque-orange rounded-full mt-3"></div>
 
       <!-- Introduction (Figma nodes: 340-1531, 340-1534) -->
-      <p class="font-sans font-medium text-[15px] leading-[22.5px] text-[#2B2927] max-w-[620px] mt-6">
-        Voici la liste de mes projets réalisés, vous pouvez voir ici le contexte, les recherches et le résultat des travaux.
+      <p class="font-sans font-medium text-[15px] leading-[22.5px] text-texte-principal max-w-[620px] mt-6">
+        Voici la liste de mes projets réalisés, vous pouvez voir ici le contexte, les recherches et le résultat des réalisations.
       </p>
-      <p class="font-sans text-[12px] leading-4 text-[#6F6A64] mt-1">
-        D’autres travaux existent. Cette page est susceptible de changer
+      <p class="font-sans text-[12px] leading-4 text-texte-attenue mt-1">
+        D’autres réalisations existent. Cette page est susceptible de changer
       </p>
 
       <!-- Séparateur orange (Figma node: 340-1536) -->
@@ -64,11 +67,11 @@ const filters = [
           ))}
         </div>
       ) : (
-        <p class="font-sans text-[14px] text-[#6F6A64] mt-10">Les projets arrivent bientôt.</p>
+        <p class="font-sans text-[14px] text-texte-attenue mt-10">Les projets arrivent bientôt.</p>
       )}
 
       <!-- Message si aucun projet ne correspond au filtre -->
-      <p id="no-result" class="hidden font-sans text-[14px] text-[#6F6A64] mt-10">
+      <p id="no-result" class="hidden font-sans text-[14px] text-texte-attenue mt-10">
         Aucun projet dans cette catégorie pour le moment.
       </p>
 
@@ -106,12 +109,12 @@ const filters = [
 
   /* Onglets de filtre (Figma: Tab) */
   .filter-btn {
-    @apply h-[25.6px] px-3 rounded-full border-[0.8px] border-[#D9D3CC]
-      font-sans font-medium text-[11px] leading-5 text-[#6F6A64]
+    @apply h-[25.6px] px-3 rounded-full border-[0.8px] border-bordures-claires
+      font-sans font-medium text-[11px] leading-5 text-texte-attenue
       hover:border-marque-orange hover:text-marque-orange transition-colors cursor-pointer
       focus:outline-none focus-visible:ring-2 focus-visible:ring-marque-orange focus-visible:ring-offset-2;
   }
   .filter-btn[aria-pressed='true'] {
-    @apply bg-marque-orange border-[#2B2927]/20 text-[#F4F1EE];
+    @apply bg-marque-orange border-texte-principal/20 text-neutres-creme;
   }
 </style>

@@ -1,35 +1,34 @@
 ---
-// Section Réalisations de l'accueil : affiche les 3 premiers projets
+// Section Réalisations de l'accueil : les projets cochés "Accueil" dans PocketBase
 import ProjectCard from './ProjectCard.astro';
-import { getProjects } from '../lib/pocketbase';
+import { getHomeProjects } from '../lib/pocketbase';
 
-const projects = (await getProjects()).slice(0, 3);
+const projects = await getHomeProjects();
 ---
 
 <section id="projets" class="w-full bg-neutres-blanc-casse py-16 sm:py-20 md:py-24 border-b border-bordures-subtiles">
   <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-16">
 
-    <!-- En-tête de Section (Figma node: 340-987) -->
-    <div class="mb-8 sm:mb-12 md:mb-14">
-      <h2 class="font-londrina font-normal text-[38px] sm:text-[54px] md:text-[64px] lg:text-[72px] leading-tight text-neutres-gris-fonce">
-        Réalisations
-      </h2>
-      <div class="w-16 sm:w-20 md:w-24 h-[3px] bg-marque-orange rounded-full mt-2"></div>
-    </div>
+    <!-- En-tête : titre à gauche, bouton "Plus de projets" à droite sur la même ligne (Figma nodes: 340-987, 340-1178) -->
+    <div class="mb-10 sm:mb-12 md:mb-14 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <h2 class="font-londrina font-normal text-[38px] sm:text-[54px] md:text-[64px] lg:text-[72px] leading-tight text-neutres-gris-fonce">
+          Réalisations
+        </h2>
+        <div class="w-16 sm:w-20 md:w-24 h-0.75 bg-marque-orange rounded-full mt-2"></div>
+      </div>
 
-    <!-- Grille des Cartes Projets Responsive (1 col mobile, 2 col tablette, 3 col desktop) -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
-      {projects.map((projet) => <ProjectCard projet={projet} />)}
-    </div>
-
-    <!-- Bouton Tous les Projets (Figma node: 340-1178) -->
-    <div class="mt-12 sm:mt-14 md:mt-16 flex justify-center">
       <a
         href="/projets"
-        class="inline-flex items-center justify-center px-6 py-2 rounded-full border border-bordures-subtiles font-londrina font-normal text-[18px] sm:text-[20px] text-neutres-gris-fonce hover:border-marque-orange hover:text-marque-orange transition-all"
+        class="inline-flex items-center px-5 sm:px-6 py-1.5 sm:py-2 rounded-full border border-marque-orange font-londrina text-[18px] sm:text-[20px] leading-7 text-neutres-gris-fonce hover:bg-marque-orange hover:text-surfaces-blanc transition-colors"
       >
-        Tous les Projets
+        Plus de projets
       </a>
+    </div>
+
+    <!-- Grille des cartes (1 col mobile, 2 col tablette, 3 col desktop) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-10 gap-y-12">
+      {projects.map((projet) => <ProjectCard projet={projet} />)}
     </div>
 
   </div>

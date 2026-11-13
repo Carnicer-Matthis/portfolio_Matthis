@@ -1,0 +1,43 @@
+---
+// Page 404 : affichée par l'hébergeur quand une adresse n'existe pas
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Page introuvable — Matthis Carnicer"
+  description="Cette page n'existe pas ou a été déplacée."
+  noindex
+>
+  <Header />
+
+  <main id="contenu" class="w-full bg-neutres-blanc-casse">
+    <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-16 py-24 sm:py-32">
+      <p class="font-londrina text-[96px] sm:text-[140px] leading-none text-marque-orange" aria-hidden="true">404</p>
+      <h1 class="mt-2 font-londrina font-normal text-[36px] sm:text-[48px] leading-tight text-neutres-gris-fonce">
+        Cette page n'existe pas
+      </h1>
+      <div class="w-20 sm:w-24 h-0.75 bg-marque-orange rounded-full mt-3"></div>
+      <p class="mt-6 max-w-lg text-[15px] leading-relaxed text-texte-principal">
+        Le lien est peut-être erroné, ou la page a été déplacée. Vous pouvez revenir à l'accueil ou parcourir mes projets.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href="/"
+          class="inline-flex items-center px-5 py-1.5 rounded-full bg-marque-orange font-londrina text-[18px] leading-7 text-texte-principal hover:opacity-85 transition-opacity"
+        >
+          Retour à l'accueil
+        </a>
+        <a
+          href="/projets"
+          class="inline-flex items-center px-5 py-1.5 rounded-full border border-marque-orange font-londrina text-[18px] leading-7 text-neutres-gris-fonce hover:bg-marque-orange hover:text-texte-principal transition-colors"
+        >
+          Voir les projets
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

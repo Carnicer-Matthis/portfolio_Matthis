@@ -1,7 +1,8 @@
 ---
 // Section Contact (Figma node: 340-1286)
 // Le formulaire envoie les messages dans la collection PocketBase "Messages".
-const PB_URL = 'http://127.0.0.1:8090';
+// Même adresse que le reste du site (variable PUBLIC_PB_URL, voir src/lib/pocketbase.ts)
+import { PB_URL } from '../lib/pocketbase';
 ---
 
 <section id="contact" class="w-full bg-neutres-blanc-casse pt-4 pb-16 sm:pb-20 md:pb-28">
@@ -77,7 +78,7 @@ const PB_URL = 'http://127.0.0.1:8090';
         <div class="flex flex-wrap items-center gap-4">
           <button
             type="submit"
-            class="inline-flex items-center px-5 py-1.5 rounded-full bg-marque-orange font-londrina font-normal text-[20px] leading-7 text-surfaces-blanc hover:opacity-85 transition-opacity cursor-pointer disabled:opacity-50 disabled:cursor-wait focus:outline-none focus-visible:ring-2 focus-visible:ring-marque-orange focus-visible:ring-offset-2"
+            class="inline-flex items-center px-5 py-1.5 rounded-full bg-marque-orange font-londrina font-normal text-[20px] leading-7 text-texte-principal hover:opacity-85 transition-opacity cursor-pointer disabled:opacity-50 disabled:cursor-wait focus:outline-none focus-visible:ring-2 focus-visible:ring-marque-orange focus-visible:ring-offset-2"
           >
             Envoyer
           </button>

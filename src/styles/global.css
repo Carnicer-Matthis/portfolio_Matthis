@@ -1,5 +1,5 @@
-/* Les polices (Londrina Solid + Instrument Sans) sont chargées dans Layout.astro via <link>,
-   plus rapide qu'un @import qui bloque le rendu en chaîne. */
+/* Les polices (Londrina Solid + Instrument Sans) sont hébergées localement via Fontsource,
+   importées dans Layout.astro. */
 @import "tailwindcss";
 
 /* Couleurs & Typographie Figma */

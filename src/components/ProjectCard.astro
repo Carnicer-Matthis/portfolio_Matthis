@@ -1,5 +1,6 @@
 ---
 // Carte projet réutilisable (Figma: ProjectCard 340-1564)
+import { Image } from 'astro:assets';
 import { projectImageUrl, type ProjectRecord } from '../lib/pocketbase';
 
 interface Props {
@@ -20,12 +21,16 @@ const href = `/projets/${projet.id}`;
   -->
   <a href={href} tabindex="-1" aria-hidden="true" class="block">
     <span class="relative block overflow-hidden rounded-xl bg-surfaces-blanc border border-bordures-claires p-1.5 transition duration-300 group-hover:-translate-y-1 group-hover:border-marque-orange group-hover:shadow-[0_12px_24px_-12px_rgba(81,78,76,0.35)]">
+      {/* Image optimisée au build : webp, plusieurs largeurs, le navigateur choisit la bonne (srcset) */}
       {imageUrl ? (
-        <img
+        <Image
           src={imageUrl}
+          inferSize
           alt=""
-          loading="lazy"
-          decoding="async"
+          format="webp"
+          quality={80}
+          widths={[400, 700, 1000]}
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           class="block w-full aspect-17/10 object-cover object-center rounded-lg"
         />
       ) : (
@@ -57,7 +62,7 @@ const href = `/projets/${projet.id}`;
     <a
       href={href}
       aria-label={`Voir le projet ${projet.Nom_projet}`}
-      class="inline-flex items-center rounded-full border border-marque-orange px-5 py-1.5 font-londrina text-[18px] leading-7 text-neutres-gris-fonce transition-colors hover:bg-marque-orange hover:text-surfaces-blanc"
+      class="inline-flex items-center rounded-full border border-marque-orange px-5 py-1.5 font-londrina text-[18px] leading-7 text-neutres-gris-fonce transition-colors hover:bg-marque-orange hover:text-texte-principal"
     >
       Voir le projet
     </a>

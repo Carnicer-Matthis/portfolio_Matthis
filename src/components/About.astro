@@ -12,6 +12,8 @@ import aboutImage from '../assets/about_torn_paper.png';
         <div class="relative w-full max-w-[380px] sm:max-w-[440px] lg:max-w-[480px]">
           <Image
             src={aboutImage}
+            widths={[380, 480, 760, 960]}
+            sizes="(min-width: 1024px) 480px, (min-width: 640px) 440px, 380px"
             alt="Matthis Carnicer - Portrait"
             class="w-full h-auto object-contain transition-transform duration-300 hover:rotate-1 hover:scale-[1.02] select-none"
             loading="lazy"

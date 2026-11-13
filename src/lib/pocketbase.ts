@@ -1,7 +1,9 @@
 // Accès centralisé à PocketBase (utilisé au build par les pages et composants)
 import { fallbackProjects } from '../data/fallbackProjects';
 
-export const PB_URL = 'http://127.0.0.1:8090';
+// Adresse de PocketBase : variable d'environnement PUBLIC_PB_URL (fichier .env), sinon le serveur local.
+// Pour la mise en ligne, il suffira de renseigner PUBLIC_PB_URL avec l'adresse du PocketBase hébergé.
+export const PB_URL: string = import.meta.env.PUBLIC_PB_URL ?? 'http://127.0.0.1:8090';
 
 /** Un enregistrement de la collection "Projet". */
 export interface ProjectRecord {

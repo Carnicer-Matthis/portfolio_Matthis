@@ -28,6 +28,8 @@ import heroImage from '../assets/image_Hero.webp';
   <div class="absolute bottom-0 left-1/2 -translate-x-1/2 z-10 h-[78%] sm:h-[84%] md:h-[90%] max-h-[820px] pointer-events-none flex justify-center items-end">
     <Image
       src={heroImage}
+      widths={[400, 600, 800, 1000]}
+      sizes="(min-width: 768px) 700px, 90vw"
       alt="Matthis - Portrait"
       priority
       loading="eager"

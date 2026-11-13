@@ -1,17 +1,33 @@
 ---
+// Polices hébergées sur le site (Fontsource) : pas d'appel à Google Fonts, donc aucune IP transmise à un tiers (RGPD)
+// et pas de connexion vers un autre serveur (plus rapide). Seules les graisses utilisées sont importées.
+import '@fontsource/londrina-solid/300.css';
+import '@fontsource/londrina-solid/400.css';
+import '@fontsource/instrument-sans/400.css';
+import '@fontsource/instrument-sans/500.css';
+import '@fontsource/instrument-sans/600.css';
 import '../styles/global.css';
+import { getImage } from 'astro:assets';
+import ogSource from '../assets/image_Hero.webp';
 
 interface Props {
   /** Titre de l'onglet et des résultats Google (≈ 60 caractères max). */
   title?: string;
   /** Résumé affiché sous le titre dans Google (≈ 155 caractères max). */
   description?: string;
+  /** true : la page ne doit pas apparaître dans Google (ex : page 404). */
+  noindex?: boolean;
 }
 
 const {
   title = 'Matthis Carnicer — Portfolio communication & UI/UX design',
   description = "Portfolio de Matthis Carnicer, étudiant en BUT MMI parcours communication à Montbéliard, en recherche de stage. Réalisations en communication, UI/UX design et développement web.",
+  noindex = false,
 } = Astro.props;
+
+// Image d'aperçu pour les partages (LinkedIn, Discord...) : portrait du Hero, optimisé au build
+const ogImage = await getImage({ src: ogSource, width: 1200, format: 'png' });
+const ogImageURL = new URL(ogImage.src, Astro.site ?? Astro.url).href;
 
 // URL de la page (devient absolue une fois "site" renseigné dans astro.config.mjs)
 const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
@@ -27,6 +43,7 @@ const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site).href :
     <meta name="author" content="Matthis Carnicer" />
     <meta name="theme-color" content="#f3f0ee" />
     {canonicalURL && <link rel="canonical" href={canonicalURL} />}
+    {noindex && <meta name="robots" content="noindex" />}
 
     <!-- Aperçu lors d'un partage (LinkedIn, Discord...) -->
     <meta property="og:type" content="website" />
@@ -34,17 +51,11 @@ const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site).href :
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {canonicalURL && <meta property="og:url" content={canonicalURL} />}
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:alt" content="Portrait de Matthis Carnicer" />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-
-    <!-- Polices de la maquette : connexion anticipée puis chargement non bloquant (display=swap) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Londrina+Solid:wght@300;400&display=swap"
-    />
 
     <meta name="generator" content={Astro.generator} />
   </head>
@@ -52,7 +63,7 @@ const canonicalURL = Astro.site ? new URL(Astro.url.pathname, Astro.site).href :
     <!-- Lien d'évitement : visible seulement au clavier (Tab), saute la navigation -->
     <a
       href="#contenu"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-full focus:bg-marque-orange focus:text-surfaces-blanc focus:font-londrina focus:text-[18px]"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-full focus:bg-marque-orange focus:text-texte-principal focus:font-londrina focus:text-[18px]"
     >
       Aller au contenu
     </a>

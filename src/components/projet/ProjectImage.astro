@@ -1,5 +1,6 @@
 ---
 // Image principale de la page détail : simple contour blanc de 6px, image affichée en entier
+import { Image } from 'astro:assets';
 interface Props {
   src: string | null;
   alt: string;
@@ -10,7 +11,17 @@ const { src, alt } = Astro.props;
 
 <div class="w-full max-w-215 rounded-xl bg-surfaces-blanc p-1.5">
   {src ? (
-    <img src={src} alt={alt} decoding="async" class="block w-full h-auto rounded-lg" />
+    <Image
+      src={src}
+      inferSize
+      alt={alt}
+      format="webp"
+      quality={80}
+      widths={[600, 900, 1300]}
+      sizes="(min-width: 1024px) 860px, 100vw"
+      loading="eager"
+      class="block w-full h-auto rounded-lg"
+    />
   ) : (
     <div class="w-full aspect-16/10 rounded-lg bg-neutres-blanc-casse flex items-center justify-center">
       <span class="font-londrina text-4xl text-marque-orange">{alt}</span>

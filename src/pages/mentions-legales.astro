@@ -12,7 +12,7 @@ const editeur = [
   'Directeur de la publication : Carnicer Matthis',
 ];
 
-// À compléter quand le site sera en ligne
+// ⚠️ À COMPLÉTER À LA MISE EN LIGNE : nom, adresse et contact de l'hébergeur (obligation légale, loi LCEN)
 const hebergement = {
   url: '(URL du site)',
   infos: ["Adresse de l'hébergeur :", "Contact de l'hébergeur :"],
@@ -73,17 +73,52 @@ const donneesFormulaire = [
           poursuites judiciaires, en application des articles L.335-2 et suivants du Code de la propriété intellectuelle.
         </p>
 
-        <!-- Données collectées -->
-        <h2 class="title">Données collectées</h2>
-        <h3 class="mt-5 font-londrina font-normal text-[24px] leading-6 text-marque-orange">
-          Données personnelles fournies
-        </h3>
+        <!-- 4. Données personnelles (RGPD) -->
+        <h2 class="title">4. Données personnelles</h2>
+        <h3 class="subtitle">Données collectées</h3>
         <p class="text mt-3">
           Lorsque vous utilisez le <a href="/#contact" class="underline decoration-marque-orange underline-offset-2 hover:text-marque-orange">formulaire de contact</a>,
           les données personnelles suivantes sont collectées :
         </p>
         <ul class="list">
           {donneesFormulaire.map((item) => <li>{item}</li>)}
+        </ul>
+
+        <h3 class="subtitle">Finalité et base légale</h3>
+        <p class="text mt-3">
+          Ces données servent uniquement à répondre à votre message. Elles sont traitées sur la base de votre
+          consentement, donné en envoyant le formulaire. Elles ne sont ni vendues, ni cédées, ni utilisées à des fins
+          commerciales.
+        </p>
+
+        <h3 class="subtitle">Stockage et durée de conservation</h3>
+        <p class="text mt-3">
+          Les messages sont enregistrés dans la base de données du site (PocketBase), accessible uniquement à Matthis
+          Carnicer. Ils sont conservés 12 mois au maximum après le dernier échange, puis supprimés.
+        </p>
+
+        <h3 class="subtitle">Vos droits</h3>
+        <p class="text mt-3">
+          Conformément au Règlement général sur la protection des données (RGPD) et à la loi Informatique et Libertés,
+          vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour l'exercer, écrivez à
+          <a href="mailto:matthiscarnicer@gmail.com" class="underline decoration-marque-orange underline-offset-2 hover:text-marque-orange">matthiscarnicer@gmail.com</a>.
+          En cas de difficulté, vous pouvez adresser une réclamation à la
+          <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" class="underline decoration-marque-orange underline-offset-2 hover:text-marque-orange">CNIL</a>.
+        </p>
+
+        <h3 class="subtitle">Cookies et mesure d'audience</h3>
+        <p class="text mt-3">
+          Ce site ne dépose aucun cookie et n'utilise aucun outil de mesure d'audience ni de publicité. Les polices
+          d'écriture sont hébergées sur le site lui-même : aucune donnée n'est transmise à un service tiers lors de votre
+          visite.
+        </p>
+
+        <!-- 5. Crédits -->
+        <h2 class="title">5. Crédits</h2>
+        <ul class="list">
+          <li>Conception, design et développement : Matthis Carnicer.</li>
+          <li>Polices : Londrina Solid et Instrument Sans, sous licence SIL Open Font License.</li>
+          <li>Projets réalisés en équipe : le rôle de Matthis Carnicer est précisé sur chaque page projet.</li>
         </ul>
 
       </div>
@@ -99,6 +134,11 @@ const donneesFormulaire = [
   /* Titres de rubrique (Figma: Heading 2, 30px) */
   .title {
     @apply mt-10 font-londrina font-normal text-[26px] sm:text-[30px] leading-[1.1] text-neutres-gris-fonce;
+  }
+
+  /* Sous-titres orange */
+  .subtitle {
+    @apply mt-6 font-londrina font-normal text-[22px] sm:text-[24px] leading-tight text-marque-orange;
   }
 
   /* Paragraphes */

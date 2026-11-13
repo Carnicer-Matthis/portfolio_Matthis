@@ -6,6 +6,7 @@ import Footer from '../../components/Footer.astro';
 import ProjectBanner from '../../components/projet/ProjectBanner.astro';
 import ProjectImage from '../../components/projet/ProjectImage.astro';
 import ProjectSidebar from '../../components/projet/ProjectSidebar.astro';
+import ProjectNext from '../../components/projet/ProjectNext.astro';
 import { getProjects, projectImageUrl, toListHtml, type ProjectRecord } from '../../lib/pocketbase';
 
 export async function getStaticPaths() {
@@ -81,15 +82,8 @@ const { projet, nextProject } = Astro.props;
         </div>
       </div>
 
-      <!-- Projet suivant (Figma node: 340-1910) -->
-      <nav class="mt-16 pt-6 border-t-[0.8px] border-bordures-claires flex justify-end" aria-label="Navigation entre projets">
-        <a
-          href={`/projets/${nextProject.id}`}
-          class="font-londrina text-[24px] sm:text-[30px] leading-9 text-marque-orange text-right hover:opacity-80 transition-opacity"
-        >
-          Projet suivant <span class="font-light">—</span> {nextProject.Nom_projet} →
-        </a>
-      </nav>
+      <!-- Retour à la liste + carte du projet suivant -->
+      <ProjectNext next={nextProject} />
 
     </div>
   </main>

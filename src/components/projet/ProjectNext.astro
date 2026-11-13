@@ -1,0 +1,55 @@
+---
+// Bas de la page détail : retour à la liste + carte cliquable vers le projet suivant
+import { Image } from 'astro:assets';
+import { projectImageUrl, type ProjectRecord } from '../../lib/pocketbase';
+
+interface Props {
+  next: ProjectRecord;
+}
+
+const { next } = Astro.props;
+const imageUrl = projectImageUrl(next);
+---
+
+<nav
+  class="mt-16 pt-8 border-t border-bordures-claires flex flex-col-reverse gap-6 md:flex-row md:items-end md:justify-between"
+  aria-label="Navigation entre projets"
+>
+  <a
+    href="/projets"
+    class="self-start md:self-auto inline-flex items-center rounded-full border border-marque-orange px-5 py-1.5 font-londrina text-[18px] leading-7 text-neutres-gris-fonce transition-colors hover:bg-marque-orange hover:text-texte-principal"
+  >
+    Tous les projets
+  </a>
+
+  <!-- Carte du projet suivant : toute la carte est cliquable -->
+  <a
+    href={`/projets/${next.id}`}
+    class="group flex w-full md:w-auto md:min-w-[460px] items-center gap-4 sm:gap-5 rounded-xl border border-bordures-claires bg-surfaces-blanc p-2 pr-5 transition hover:border-marque-orange hover:-translate-y-0.5"
+  >
+    {imageUrl && (
+      <Image
+        src={imageUrl}
+        inferSize
+        alt=""
+        format="webp"
+        quality={75}
+        widths={[160, 320]}
+        sizes="160px"
+        class="w-28 sm:w-40 aspect-17/10 shrink-0 rounded-lg object-cover"
+      />
+    )}
+
+    <span class="flex min-w-0 flex-col">
+      <span class="text-[11px] font-semibold uppercase tracking-[1.8px] text-texte-attenue">
+        Projet suivant
+      </span>
+      <span class="mt-1 font-londrina text-[26px] sm:text-[30px] leading-none text-neutres-gris-fonce transition-colors group-hover:text-marque-orange">
+        {next.Nom_projet}
+      </span>
+      <span class="mt-1.5 truncate text-[13px] text-texte-attenue">
+        {next.Parcours}
+      </span>
+    </span>
+  </a>
+</nav>

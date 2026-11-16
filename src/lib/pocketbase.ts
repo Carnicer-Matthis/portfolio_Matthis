@@ -1,5 +1,4 @@
 // Accès centralisé à PocketBase (utilisé au build par les pages et composants)
-import { fallbackProjects } from '../data/fallbackProjects';
 
 // Adresse de PocketBase : variable d'environnement PUBLIC_PB_URL (fichier .env), sinon le serveur local.
 // Pour la mise en ligne, il suffira de renseigner PUBLIC_PB_URL avec l'adresse du PocketBase hébergé.
@@ -31,31 +30,52 @@ export interface ProjectRecord {
   Accueil?: boolean;
 }
 
-/** Tous les projets triés par numéro. Données de secours si PocketBase est injoignable. */
-export async function getProjects(): Promise<ProjectRecord[]> {
+/** Résultat d'une lecture des projets : la liste + l'état de PocketBase. */
+export interface ProjectsResult {
+  projects: ProjectRecord[];
+  /** false si PocketBase ne répond pas (serveur éteint, mauvaise adresse...). */
+  online: boolean;
+}
+
+// Petit cache : plusieurs composants lisent les projets pour une même page,
+// on n'interroge PocketBase qu'une fois toutes les 5 secondes (et on n'attend pas 2 s à chaque fois s'il est éteint).
+let cache: { at: number; promise: Promise<ProjectsResult> } | null = null;
+
+async function fetchProjects(): Promise<ProjectsResult> {
   try {
     const res = await fetch(`${PB_URL}/api/collections/Projet/records?sort=Numero&perPage=200`, {
       signal: AbortSignal.timeout(2000),
     });
-    if (res.ok) {
-      const data = await res.json();
-      if (data.items?.length) return data.items;
-    }
-  } catch {
-    // PocketBase éteint : on passe aux données de secours
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    return { projects: data.items ?? [], online: true };
+  } catch (error) {
+    console.warn(`PocketBase injoignable (${PB_URL}) : les projets ne seront pas affichés.`, error);
+    return { projects: [], online: false };
   }
-  console.warn('PocketBase non disponible, utilisation des données de secours.');
-  return fallbackProjects;
+}
+
+/** Projets triés par numéro + état de PocketBase. Ne plante jamais : liste vide si PocketBase est éteint. */
+export function getProjectsResult(): Promise<ProjectsResult> {
+  if (!cache || Date.now() - cache.at > 5000) {
+    cache = { at: Date.now(), promise: fetchProjects() };
+  }
+  return cache.promise;
+}
+
+/** Tous les projets triés par numéro (liste vide si PocketBase est éteint). */
+export async function getProjects(): Promise<ProjectRecord[]> {
+  return (await getProjectsResult()).projects;
 }
 
 /**
  * Les 3 projets de la page d'accueil : ceux cochés "Accueil" dans PocketBase.
  * Si aucun n'est coché, on prend les 3 premiers.
  */
-export async function getHomeProjects(limit = 3): Promise<ProjectRecord[]> {
-  const projects = await getProjects();
+export async function getHomeProjects(limit = 3): Promise<ProjectsResult> {
+  const { projects, online } = await getProjectsResult();
   const selection = projects.filter((projet) => projet.Accueil);
-  return (selection.length ? selection : projects).slice(0, limit);
+  return { projects: (selection.length ? selection : projects).slice(0, limit), online };
 }
 
 function fileUrl(projet: ProjectRecord, file: string): string {

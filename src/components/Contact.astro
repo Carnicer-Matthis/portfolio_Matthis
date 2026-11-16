@@ -10,22 +10,38 @@ import { PB_URL } from '../lib/pocketbase';
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6">
 
       <!-- Colonne Gauche : Titre + texte (Figma node: 340-1287) -->
-      <div class="lg:col-span-5 flex flex-col">
+      <div data-reveal class="lg:col-span-5 flex flex-col">
         <h2 class="font-londrina font-normal text-[44px] sm:text-[54px] md:text-t1 leading-none text-neutres-gris-fonce uppercase">
           Contactez-moi
         </h2>
 
         <!-- Barre de séparation orange (Figma node: 340-1330) -->
-        <div class="w-20 sm:w-24 h-0.75 bg-marque-orange rounded-full mt-3"></div>
+        <div data-reveal="bar" class="w-20 sm:w-24 h-0.75 bg-marque-orange rounded-full mt-3"></div>
 
         <!-- Paragraphe (Figma node: 340-1333) -->
         <p class="font-sans text-[14px] leading-5 text-texte-attenue max-w-[320px] mt-6">
           Un projet, une question, une idée à confronter ? Écrivez-moi, je réponds rapidement.
         </p>
+
+        <!-- CV : téléchargement direct -->
+        <div class="mt-6">
+          <a
+            href="/CV_Matthis_CARNICER.pdf"
+            download="CV_Matthis_CARNICER.pdf"
+            class="inline-flex items-center gap-2 rounded-full bg-marque-orange px-5 py-1.5 font-londrina text-[20px] leading-7 text-texte-principal transition-opacity hover:opacity-85"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 20h14" />
+            </svg>
+            Télécharger mon CV
+          </a>
+        </div>
       </div>
 
       <!-- Colonne Droite : Formulaire (Figma node: 340-1336) -->
       <form
+        data-reveal
+        style="--reveal-delay: 150ms"
         id="contact-form"
         data-pb-url={PB_URL}
         class="lg:col-span-7 flex flex-col gap-4 p-6 bg-surfaces-blanc/50 border-[0.8px] border-bordures-claires rounded-[10px]"

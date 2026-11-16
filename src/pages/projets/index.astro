@@ -4,9 +4,11 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
-import { getProjects } from '../../lib/pocketbase';
+import ProjectsUnavailable from '../../components/ProjectsUnavailable.astro';
+import { getProjectsResult } from '../../lib/pocketbase';
 
-const projects = await getProjects();
+// online = false si PocketBase est éteint : on affiche un message au lieu des cartes
+const { projects, online } = await getProjectsResult();
 
 // Filtres (Figma node: 340-1537). Un projet "Communication / Design" apparaît dans les deux filtres.
 const filters = [
@@ -30,7 +32,7 @@ const filters = [
       <h1 class="font-londrina font-normal text-[56px] sm:text-[76px] md:text-[96px] leading-[0.9] text-neutres-gris-fonce">
         Mes projets
       </h1>
-      <div class="w-20 sm:w-24 h-0.75 bg-marque-orange rounded-full mt-3"></div>
+      <div data-reveal="bar" class="w-20 sm:w-24 h-0.75 bg-marque-orange rounded-full mt-3"></div>
 
       <!-- Introduction (Figma nodes: 340-1531, 340-1534) -->
       <p class="font-sans font-medium text-[15px] leading-[22.5px] text-texte-principal max-w-[620px] mt-6">
@@ -43,31 +45,37 @@ const filters = [
       <!-- Séparateur orange (Figma node: 340-1536) -->
       <hr class="border-0 border-t-[0.8px] border-marque-orange mt-6" />
 
-      <!-- Filtres (Figma node: 340-1537) -->
-      <div class="flex flex-wrap gap-1 mt-6" role="group" aria-label="Filtrer les projets par parcours">
-        {filters.map((filter, i) => (
-          <button
-            type="button"
-            data-filter={filter.id}
-            aria-pressed={i === 0 ? 'true' : 'false'}
-            class="filter-btn"
-          >
-            {filter.label}
-          </button>
-        ))}
-      </div>
+      <!-- Filtres (Figma node: 340-1537), seulement s'il y a des projets à filtrer -->
+      {projects.length > 0 && (
+        <div class="flex flex-wrap gap-1 mt-6" role="group" aria-label="Filtrer les projets par parcours">
+          {filters.map((filter, i) => (
+            <button
+              type="button"
+              data-filter={filter.id}
+              aria-pressed={i === 0 ? 'true' : 'false'}
+              class="filter-btn"
+            >
+              {filter.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       <!-- Grille des projets (Figma node: 340-1563) -->
       {projects.length > 0 ? (
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 mt-6">
-          {projects.map((projet) => (
+          {projects.map((projet, i) => (
             <div data-parcours={projet.Parcours.toLowerCase()} class="project-item">
-              <ProjectCard projet={projet} />
+              <ProjectCard projet={projet} revealDelay={(i % 3) * 120} />
             </div>
           ))}
         </div>
-      ) : (
+      ) : online ? (
         <p class="font-sans text-[14px] text-texte-attenue mt-10">Les projets arrivent bientôt.</p>
+      ) : (
+        <div class="mt-6">
+          <ProjectsUnavailable />
+        </div>
       )}
 
       <!-- Message si aucun projet ne correspond au filtre -->
@@ -96,7 +104,17 @@ const filters = [
       items.forEach((item) => {
         const visible = filter === 'tout' || (item.dataset.parcours ?? '').includes(filter);
         item.classList.toggle('hidden', !visible);
-        if (visible) visibleCount++;
+        if (visible) {
+          // Rejoue l'animation d'apparition de la carte, en cascade
+          const card = item.querySelector<HTMLElement>('[data-reveal]');
+          if (card) {
+            card.style.setProperty('--reveal-delay', `${(visibleCount % 3) * 80}ms`);
+            card.classList.remove('is-visible');
+            void card.offsetWidth; // force le navigateur à repartir de l'état caché
+            card.classList.add('is-visible');
+          }
+          visibleCount++;
+        }
       });
 
       noResult?.classList.toggle('hidden', visibleCount > 0);

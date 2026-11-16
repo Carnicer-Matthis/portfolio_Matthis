@@ -5,14 +5,16 @@ import { projectImageUrl, type ProjectRecord } from '../lib/pocketbase';
 
 interface Props {
   projet: ProjectRecord;
+  /** Décalage de l'animation d'apparition (ms), pour faire apparaître les cartes l'une après l'autre */
+  revealDelay?: number;
 }
 
-const { projet } = Astro.props;
+const { projet, revealDelay = 0 } = Astro.props;
 const imageUrl = projectImageUrl(projet);
 const href = `/projets/${projet.id}`;
 ---
 
-<article class="group flex flex-col h-full w-full max-w-md mx-auto sm:max-w-none">
+<article data-reveal style={`--reveal-delay: ${revealDelay}ms`} class="group flex flex-col h-full w-full max-w-md mx-auto sm:max-w-none">
 
   <!--
     Vignette : même taille pour toutes les cartes (format 17/10, moyenne des vignettes),

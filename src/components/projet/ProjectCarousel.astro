@@ -1,0 +1,117 @@
+---
+// Bas de la page détail : carrousel des autres projets (en commençant par le suivant)
+// Défilement natif + scroll-snap : fluide au doigt/trackpad, accessible au clavier, sans librairie.
+import { Image } from 'astro:assets';
+import { projectImageUrl, type ProjectRecord } from '../../lib/pocketbase';
+
+interface Props {
+  projects: ProjectRecord[];
+}
+
+const { projects } = Astro.props;
+---
+
+<section class="mt-16 pt-8 border-t border-bordures-claires" aria-labelledby="carousel-titre" data-carousel>
+
+  <!-- En-tête : titre + flèches + lien vers tous les projets -->
+  <div class="flex flex-wrap items-center justify-between gap-4">
+    <h2 id="carousel-titre" class="text-[11px] font-semibold uppercase tracking-[1.8px] text-texte-attenue">
+      Projets suivants
+    </h2>
+
+    <div class="flex items-center gap-2">
+      <button type="button" data-carousel-prev aria-label="Projets précédents" class="carousel-btn">
+        <svg aria-hidden="true" viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+      </button>
+      <button type="button" data-carousel-next aria-label="Projets suivants" class="carousel-btn">
+        <svg aria-hidden="true" viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" /></svg>
+      </button>
+      <a
+        href="/projets"
+        class="ml-2 inline-flex items-center rounded-full border border-marque-orange px-5 py-1.5 font-londrina text-[18px] leading-7 text-neutres-gris-fonce transition-colors hover:bg-marque-orange hover:text-texte-principal"
+      >
+        Tous les projets
+      </a>
+    </div>
+  </div>
+
+  <!-- Piste du carrousel : une liste qui défile horizontalement -->
+  <ul
+    data-carousel-track
+    class="carousel-track mt-5 -mx-1 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-1 py-1 pb-4"
+    tabindex="0"
+    aria-label="Liste des autres projets, défilement horizontal"
+  >
+    {projects.map((projet) => {
+      const imageUrl = projectImageUrl(projet);
+      return (
+        <li class="w-[85%] sm:w-[340px] shrink-0 snap-start">
+          <!-- Carte compacte : vignette à gauche, nom et parcours à droite -->
+          <a
+            href={`/projets/${projet.id}`}
+            class="group flex h-full items-center gap-4 rounded-xl border border-bordures-claires bg-surfaces-blanc p-2 pr-4 transition hover:border-marque-orange hover:-translate-y-0.5"
+          >
+            {imageUrl && (
+              <Image
+                src={imageUrl}
+                inferSize
+                alt=""
+                format="webp"
+                quality={75}
+                widths={[128, 256]}
+                sizes="128px"
+                class="w-28 sm:w-32 aspect-17/10 shrink-0 rounded-lg object-cover"
+              />
+            )}
+            <span class="flex min-w-0 flex-col">
+              <span class="font-londrina text-[22px] leading-tight text-neutres-gris-fonce transition-colors group-hover:text-marque-orange">
+                {projet.Nom_projet}
+              </span>
+              <span class="mt-1 truncate text-[13px] text-texte-attenue">{projet.Parcours}</span>
+            </span>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</section>
+
+<script>
+  // Flèches : font défiler la piste d'une "page" (largeur visible), en avant ou en arrière.
+  // Elles se désactivent au début et à la fin de la liste.
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((carousel) => {
+    const track = carousel.querySelector<HTMLElement>('[data-carousel-track]');
+    const prev = carousel.querySelector<HTMLButtonElement>('[data-carousel-prev]');
+    const next = carousel.querySelector<HTMLButtonElement>('[data-carousel-next]');
+    if (!track || !prev || !next) return;
+
+    const update = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= max - 2;
+    };
+
+    prev.addEventListener('click', () => track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' }));
+    next.addEventListener('click', () => track.scrollBy({ left: track.clientWidth, behavior: 'smooth' }));
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  });
+</script>
+
+<style>
+  @reference "../../styles/global.css";
+
+  /* Boutons ronds ← → */
+  .carousel-btn {
+    @apply flex size-10 items-center justify-center rounded-full border border-bordures-claires bg-surfaces-blanc text-neutres-gris-fonce transition-colors cursor-pointer;
+    @apply hover:border-marque-orange hover:text-marque-orange;
+    @apply disabled:cursor-default disabled:opacity-35 disabled:hover:border-bordures-claires disabled:hover:text-neutres-gris-fonce;
+  }
+
+  /* Barre de défilement de la piste : fine et discrète */
+  .carousel-track {
+    scrollbar-width: thin;
+    scrollbar-color: var(--bordures-claires) transparent;
+  }
+</style>

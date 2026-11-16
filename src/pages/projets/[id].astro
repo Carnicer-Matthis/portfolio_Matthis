@@ -6,7 +6,7 @@ import Footer from '../../components/Footer.astro';
 import ProjectBanner from '../../components/projet/ProjectBanner.astro';
 import ProjectImage from '../../components/projet/ProjectImage.astro';
 import ProjectSidebar from '../../components/projet/ProjectSidebar.astro';
-import ProjectNext from '../../components/projet/ProjectNext.astro';
+import ProjectCarousel from '../../components/projet/ProjectCarousel.astro';
 import { getProjects, projectImageUrl, toListHtml, type ProjectRecord } from '../../lib/pocketbase';
 
 export async function getStaticPaths() {
@@ -14,16 +14,20 @@ export async function getStaticPaths() {
 
   return projects.map((projet, index) => ({
     params: { id: projet.id },
-    props: { projet, nextProject: projects[(index + 1) % projects.length] },
+    props: {
+      projet,
+      // Tous les autres projets, en commençant par le suivant (et en revenant au début de la liste)
+      otherProjects: [...projects.slice(index + 1), ...projects.slice(0, index)],
+    },
   }));
 }
 
 interface Props {
   projet: ProjectRecord;
-  nextProject: ProjectRecord;
+  otherProjects: ProjectRecord[];
 }
 
-const { projet, nextProject } = Astro.props;
+const { projet, otherProjects } = Astro.props;
 ---
 
 <Layout
@@ -41,7 +45,7 @@ const { projet, nextProject } = Astro.props;
       <!-- Grille 8 / 4 colonnes (Figma node: 340-1765) -->
       <div id="details" class="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-16 scroll-mt-20">
 
-        <article class="lg:col-span-8 lg:pr-10 xl:pr-16 lg:border-r-[0.8px] lg:border-bordures-claires">
+        <article data-reveal class="lg:col-span-8 lg:pr-10 xl:pr-16 lg:border-r-[0.8px] lg:border-bordures-claires">
           <!-- Image principale (Image_projet) ; les images détail sont dans la sidebar -->
           <ProjectImage src={projectImageUrl(projet)} alt={projet.Nom_projet} />
 
@@ -77,13 +81,13 @@ const { projet, nextProject } = Astro.props;
           </div>
         </article>
 
-        <div class="lg:col-span-4 pt-8 border-t-[0.8px] border-bordures-claires lg:pt-0 lg:border-t-0">
+        <div data-reveal style="--reveal-delay: 150ms" class="lg:col-span-4 pt-8 border-t-[0.8px] border-bordures-claires lg:pt-0 lg:border-t-0">
           <ProjectSidebar projet={projet} />
         </div>
       </div>
 
-      <!-- Retour à la liste + carte du projet suivant -->
-      <ProjectNext next={nextProject} />
+      <!-- Carrousel des autres projets (en commençant par le suivant) -->
+      <ProjectCarousel projects={otherProjects} />
 
     </div>
   </main>

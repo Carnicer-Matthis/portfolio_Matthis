@@ -8,7 +8,7 @@ import aboutImage from '../assets/about_torn_paper.png';
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-14 lg:gap-16 items-center">
       
       <!-- Colonne Gauche : Image portrait effet papier déchiré (Figma node: 340-1184) -->
-      <div class="lg:col-span-5 flex justify-center lg:justify-start">
+      <div data-reveal class="lg:col-span-5 flex justify-center lg:justify-start">
         <div class="relative w-full max-w-[380px] sm:max-w-[440px] lg:max-w-[480px]">
           <Image
             src={aboutImage}
@@ -22,7 +22,7 @@ import aboutImage from '../assets/about_torn_paper.png';
       </div>
 
       <!-- Colonne Droite : Textes et Biographie (Figma node: 340-1190) -->
-      <div class="lg:col-span-7 flex flex-col justify-center">
+      <div data-reveal style="--reveal-delay: 150ms" class="lg:col-span-7 flex flex-col justify-center">
         
         <!-- Titre de Section (Figma node: 340-1191) -->
         <h2 class="font-londrina font-normal text-[48px] sm:text-[64px] md:text-[80px] lg:text-[92px] leading-[0.95] text-neutres-gris-fonce">
@@ -30,7 +30,7 @@ import aboutImage from '../assets/about_torn_paper.png';
         </h2>
         
         <!-- Barre de séparation orange (Figma node: 340-1196) -->
-        <div class="w-20 sm:w-24 h-[3px] bg-marque-orange rounded-full mt-3 sm:mt-4 mb-6 sm:mb-8"></div>
+        <div data-reveal="bar" class="w-20 sm:w-24 h-[3px] bg-marque-orange rounded-full mt-3 sm:mt-4 mb-6 sm:mb-8"></div>
 
         <!-- Sous-titre Nom (Figma node: 340-1198) -->
         <h3 class="font-londrina font-normal text-[26px] sm:text-[30px] leading-tight text-marque-orange mb-4">
@@ -47,6 +47,13 @@ import aboutImage from '../assets/about_torn_paper.png';
           </p>
           <p>
             Mon but est simple : utiliser le web pour informer, rassembler et créer du lien entre un projet et son public.
+          </p>
+          <!-- {' '} = espace forcé : Astro supprime les retours à la ligne collés à une balise -->
+          <p>
+            Je recherche aujourd'hui un <strong class="font-semibold text-marque-orange">stage en stratégie de communication digitale</strong> de 9 à 10 semaines,{' '}
+            <strong class="font-semibold text-marque-orange">du 29 mars au 4 juin</strong>, pour mettre ces compétences en pratique au sein d'une équipe.
+            Si mon profil vous intéresse, <a href="#contact" class="underline decoration-marque-orange underline-offset-2 hover:text-marque-orange transition-colors">écrivez-moi</a> ou{' '}
+            <a href="/CV_Matthis_CARNICER.pdf" target="_blank" rel="noopener" class="underline decoration-marque-orange underline-offset-2 hover:text-marque-orange transition-colors">consultez mon CV</a>.
           </p>
         </div>
 

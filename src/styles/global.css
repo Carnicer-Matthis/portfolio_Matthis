@@ -195,6 +195,37 @@
       animation-duration: 0.01ms !important;
       animation-delay: 0ms !important;
       transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
     }
   }
 }
+
+
+/* ===== Apparition au défilement =====
+   Un élément avec data-reveal apparaît en montant légèrement quand il entre à l'écran
+   (classe .is-visible ajoutée par le script de Layout.astro).
+   Préfixe .js : sans JavaScript, rien n'est caché. Décalage possible avec style="--reveal-delay: 120ms". */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Barres orange sous les titres : elles se dessinent de gauche à droite */
+.js [data-reveal='bar'] {
+  opacity: 1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s;
+}
+.js [data-reveal='bar'].is-visible {
+  transform: scaleX(1);
+}
+

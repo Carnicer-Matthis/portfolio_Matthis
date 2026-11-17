@@ -24,3 +24,6 @@ pnpm-debug.log*
 .idea/
 # PocketBase : déplacé hors du projet (sur mon Bureau), jamais publié sur GitHub
 backend/
+
+# Local Netlify folder
+.netlify

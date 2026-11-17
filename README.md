@@ -9,7 +9,7 @@ Site : https://portfolio.carnicer.fr (hébergé par Netlify, nom de domaine chez
 
 Le site est construit avec [Astro](https://astro.build) (version 7), qui me permet de découper mes pages en composants, de générer des pages statiques et d'optimiser les images. Pour le style, j'utilise [Tailwind CSS](https://tailwindcss.com) (version 4), que j'ai adapté à ma charte : mes couleurs, mes typographies et mes animations sont déclarées dans `src/styles/global.css` à partir de ma maquette Figma.
 
-Mes projets sont gérés dans [PocketBase](https://pocketbase.io), une base de données avec une interface d'administration. C'est aussi là que sont enregistrés les messages envoyés depuis le formulaire de contact.
+Mes projets sont gérés dans [PocketBase](https://pocketbase.io), une base de données avec une interface d'administration. Les messages du formulaire de contact passent par [Netlify Forms](https://docs.netlify.com/forms/setup/).
 
 Le plan du site est créé automatiquement par [@astrojs/sitemap](https://docs.astro.build/fr/guides/integrations-guide/sitemap/), et les images sont converties en WebP par [sharp](https://sharp.pixelplumbing.com) au moment du build.
 
@@ -24,7 +24,7 @@ Aucun thème ni template prédéfini : toutes les pages sont développées à pa
 - Les projets sont saisis dans PocketBase (collection `Projet`). Une seule page, [`src/pages/projets/[id].astro`](src/pages/projets/[id].astro), génère la page de chaque projet. La case « Accueil » permet de choisir les projets affichés sur la page d'accueil.
 - Tout l'accès à PocketBase est regroupé dans [`src/lib/pocketbase.ts`](src/lib/pocketbase.ts). Si PocketBase ne répond pas, le site fonctionne quand même et affiche un message à la place des projets.
 - PocketBase (l'exécutable, la base de données et les migrations) n'est pas dans ce dépôt. Comme je n'ai pas pu l'héberger sur le VPS de l'IUT, il est rangé sur mon ordinateur et je le lance en local (`pocketbase.exe serve`, sur `http://127.0.0.1:8090`) avant le site, notamment pour la soutenance. Mes données (projets, messages, compte admin) ne sont donc pas publiées.
-- Le formulaire de contact enregistre les messages dans la collection `Messages`, lisible uniquement par l'administrateur.
+- Le formulaire de contact utilise Netlify Forms : les messages arrivent dans le tableau de bord Netlify (onglet Forms), avec une notification par e-mail.
 - L'adresse de PocketBase et celle du site se règlent dans un fichier `.env` (modèle : [`.env.example`](.env.example)).
 
 ## Documents du projet

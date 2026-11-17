@@ -1,7 +1,6 @@
 ---
-// Le formulaire envoie les messages dans la collection PocketBase "Messages".
-// Même adresse que le reste du site (variable PUBLIC_PB_URL, voir src/lib/pocketbase.ts)
-import { PB_URL } from '../lib/pocketbase';
+// Le formulaire est géré par Netlify Forms : Netlify repère le formulaire au déploiement
+// (attribut data-netlify) et range les messages dans le tableau de bord du site (onglet Forms).
 ---
 
 <section id="contact" class="w-full bg-neutres-blanc-casse pt-4 pb-16 sm:pb-20 md:pb-28">
@@ -37,9 +36,18 @@ import { PB_URL } from '../lib/pocketbase';
         data-reveal
         style="--reveal-delay: 150ms"
         id="contact-form"
-        data-pb-url={PB_URL}
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
         class="lg:col-span-7 flex flex-col gap-4 p-6 bg-surfaces-blanc/50 border-[0.8px] border-bordures-claires rounded-[10px]"
       >
+        <!-- Champs techniques pour Netlify : nom du formulaire + piège anti-spam invisible -->
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hidden">
+          <label>Ne pas remplir : <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </p>
+
         <label class="flex flex-col gap-1">
           <span class="font-sans font-semibold text-[12px] leading-4 tracking-[0.6px] uppercase text-texte-attenue">
             Prénom
@@ -115,20 +123,18 @@ import { PB_URL } from '../lib/pocketbase';
       event.preventDefault();
 
       const data = new FormData(form);
-      const payload = {
-        prenom: String(data.get('prenom') ?? '').trim(),
-        email: String(data.get('email') ?? '').trim(),
-        message: String(data.get('message') ?? '').trim(),
-      };
+      // Netlify Forms attend les champs encodés comme un formulaire classique
+      const body = new URLSearchParams();
+      data.forEach((value, key) => body.append(key, String(value).trim()));
 
       button.disabled = true;
       showStatus('Envoi en cours…', true);
 
       try {
-        const res = await fetch(`${form.dataset.pbUrl}/api/collections/Messages/records`, {
+        const res = await fetch('/', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: body.toString(),
         });
 
         if (!res.ok) throw new Error(`HTTP ${res.status}`);

@@ -71,6 +71,6 @@ Les adresses de mes pages projet utilisent encore l'identifiant PocketBase (par 
 
 ## 5. Conformité juridique
 
-Comme mon formulaire de contact récupère un prénom, un e-mail et un message, j'ai expliqué dans les mentions légales ce que je fais de ces données (RGPD) : à quoi elles servent, où elles sont stockées, combien de temps je les garde (12 mois maximum), quels sont les droits des visiteurs et comment contacter la CNIL.
+Comme mon formulaire de contact récupère un prénom, un e-mail et un message, j'ai expliqué dans les mentions légales ce que je fais de ces données (RGPD) : à quoi elles servent, où elles sont stockées, combien de temps je les garde (12 mois maximum), quels sont les droits des visiteurs et comment contacter la CNIL. Comme ma base PocketBase n'est pas en ligne, les messages passent par Netlify Forms, le service de formulaires de mon hébergeur, qui me les transmet par e-mail à contact@carnicer.fr. Un champ caché piège les robots qui envoient du spam.
 
 Mes mentions légales disaient que tous les contenus m'appartenaient. J'ai ajouté une partie « Crédits » : les polices et leur licence (SIL Open Font License), et le fait que plusieurs projets ont été réalisés en équipe, avec mon rôle précisé sur chaque page projet. Les outils que j'utilise sont cités dans le README avec leur licence.

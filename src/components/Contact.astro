@@ -122,6 +122,12 @@
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
 
+      // Netlify Forms ne fonctionne que sur le site en ligne : en local, on l'explique au lieu d'afficher une erreur
+      if (import.meta.env.DEV) {
+        showStatus("En local, l'envoi est désactivé : le formulaire fonctionne sur le site en ligne (Netlify Forms).", false);
+        return;
+      }
+
       const data = new FormData(form);
       // Netlify Forms attend les champs encodés comme un formulaire classique
       const body = new URLSearchParams();

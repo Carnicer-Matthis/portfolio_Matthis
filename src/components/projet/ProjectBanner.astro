@@ -1,5 +1,4 @@
 ---
-// Bandeau clair en haut de la page détail (inspiré du Figma node: 340-1748)
 import type { ProjectRecord } from '../../lib/pocketbase';
 
 interface Props {
@@ -11,7 +10,6 @@ const { projet } = Astro.props;
 
 <section class="relative overflow-hidden rounded-xl border border-bordures-claires bg-surfaces-blanc px-6 py-5 sm:px-8 sm:py-6">
 
-  <!-- Ligne du haut : retour + parcours à gauche, lien vers le projet à droite -->
   <div class="relative flex flex-wrap items-center justify-between gap-4">
     <div class="flex flex-wrap items-center gap-3 sm:gap-4">
       <a
@@ -40,7 +38,6 @@ const { projet } = Astro.props;
     )}
   </div>
 
-  <!-- Titre + sous-titre -->
   <div class="relative mt-4 max-w-3xl">
     <h1 class="font-londrina font-normal text-[36px] sm:text-[44px] lg:text-[48px] leading-none text-neutres-gris-fonce">
       {projet.Nom_projet}

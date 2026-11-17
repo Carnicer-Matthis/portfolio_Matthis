@@ -1,5 +1,4 @@
 ---
-// Page "Mes projets" (Figma node: 340-1456)
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -10,7 +9,7 @@ import { getProjectsResult } from '../../lib/pocketbase';
 // online = false si PocketBase est éteint : on affiche un message au lieu des cartes
 const { projects, online } = await getProjectsResult();
 
-// Filtres (Figma node: 340-1537). Un projet "Communication / Design" apparaît dans les deux filtres.
+// Un projet "Communication / Design" apparaît dans les deux filtres.
 const filters = [
   { id: 'tout', label: 'Tout' },
   { id: 'développement web', label: 'Développement web' },
@@ -28,13 +27,11 @@ const filters = [
   <main id="contenu" class="w-full bg-neutres-blanc-casse pt-12 sm:pt-16 pb-20 sm:pb-28">
     <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-16">
 
-      <!-- Titre (Figma node: 340-1457) -->
       <h1 class="font-londrina font-normal text-[56px] sm:text-[76px] md:text-[96px] leading-[0.9] text-neutres-gris-fonce">
         Mes projets
       </h1>
       <div data-reveal="bar" class="w-20 sm:w-24 h-0.75 bg-marque-orange rounded-full mt-3"></div>
 
-      <!-- Introduction (Figma nodes: 340-1531, 340-1534) -->
       <p class="font-sans font-medium text-[15px] leading-[22.5px] text-texte-principal max-w-[620px] mt-6">
         Voici la liste de mes projets réalisés, vous pouvez voir ici le contexte, les recherches et le résultat des réalisations.
       </p>
@@ -42,10 +39,8 @@ const filters = [
         D’autres réalisations existent. Cette page est susceptible de changer
       </p>
 
-      <!-- Séparateur orange (Figma node: 340-1536) -->
       <hr class="border-0 border-t-[0.8px] border-marque-orange mt-6" />
 
-      <!-- Filtres (Figma node: 340-1537), seulement s'il y a des projets à filtrer -->
       {projects.length > 0 && (
         <div class="flex flex-wrap gap-1 mt-6" role="group" aria-label="Filtrer les projets par parcours">
           {filters.map((filter, i) => (
@@ -61,7 +56,6 @@ const filters = [
         </div>
       )}
 
-      <!-- Grille des projets (Figma node: 340-1563) -->
       {projects.length > 0 ? (
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 mt-6">
           {projects.map((projet, i) => (
@@ -78,7 +72,6 @@ const filters = [
         </div>
       )}
 
-      <!-- Message si aucun projet ne correspond au filtre -->
       <p id="no-result" class="hidden font-sans text-[14px] text-texte-attenue mt-10">
         Aucun projet dans cette catégorie pour le moment.
       </p>
@@ -125,7 +118,7 @@ const filters = [
 <style>
   @reference "../../styles/global.css";
 
-  /* Onglets de filtre (Figma: Tab) */
+  /* Onglets de filtre */
   .filter-btn {
     @apply h-[25.6px] px-3 rounded-full border-[0.8px] border-bordures-claires
       font-sans font-medium text-[11px] leading-5 text-texte-attenue

@@ -1,8 +1,8 @@
 # Portfolio — Matthis Carnicer
 
-Portfolio de Matthis Carnicer, étudiant en 2e année de BUT MMI à Montbéliard (parcours Stratégie de communication et Design d'expérience), en recherche de stage en stratégie de communication digitale de 9 à 10 semaines, du 29 mars au 4 juin.
+voici mon portfolio, je suis étudiant en 2e année de BUT MMI à Montbéliard (parcours Stratégie de communication et Design d'expérience), en recherche de stage en stratégie de communication digitale de 9 à 10 semaines, du 29 mars au 4 juin.
 
-Site : en cours de mise en ligne (déploiement bloqué pour l'instant par des problèmes de VPS).
+Site : https://portfolio.carnicer.fr (hébergé par Netlify, nom de domaine chez Infomaniak).
 
 
 ## Technologies et librairies
@@ -23,7 +23,7 @@ Aucun thème ni template prédéfini : toutes les pages sont développées à pa
 
 - Les projets sont saisis dans PocketBase (collection `Projet`). Une seule page, [`src/pages/projets/[id].astro`](src/pages/projets/[id].astro), génère la page de chaque projet. La case « Accueil » permet de choisir les projets affichés sur la page d'accueil.
 - Tout l'accès à PocketBase est regroupé dans [`src/lib/pocketbase.ts`](src/lib/pocketbase.ts). Si PocketBase ne répond pas, le site fonctionne quand même et affiche un message à la place des projets.
-- La structure de la base est versionnée dans [`backend/pb_migrations`](backend/pb_migrations). Les données elles-mêmes (`backend/pb_data`) ne sont pas publiées.
+- PocketBase (l'exécutable, la base de données et les migrations) n'est pas dans ce dépôt. Comme je n'ai pas pu l'héberger sur le VPS de l'IUT, il est rangé sur mon ordinateur et je le lance en local (`pocketbase.exe serve`, sur `http://127.0.0.1:8090`) avant le site, notamment pour la soutenance. Mes données (projets, messages, compte admin) ne sont donc pas publiées.
 - Le formulaire de contact enregistre les messages dans la collection `Messages`, lisible uniquement par l'administrateur.
 - L'adresse de PocketBase et celle du site se règlent dans un fichier `.env` (modèle : [`.env.example`](.env.example)).
 

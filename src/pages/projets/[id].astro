@@ -1,5 +1,4 @@
 ---
-// Page détail d'un projet (Figma node: 340-1743)
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -37,19 +36,17 @@ const { projet, otherProjects } = Astro.props;
   <Header active="projets" />
 
   <main id="contenu" class="w-full bg-neutres-blanc-casse">
-    <!-- Même conteneur que le header : du logo jusqu'au lien Contact (Figma node: 340-1744) -->
+    <!-- Même conteneur que le header : du logo jusqu'au lien Contact -->
     <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-16 pt-10 pb-20 lg:pb-28">
 
       <ProjectBanner projet={projet} />
 
-      <!-- Grille 8 / 4 colonnes (Figma node: 340-1765) -->
       <div id="details" class="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-16 scroll-mt-20">
 
         <article data-reveal class="lg:col-span-8 lg:pr-10 xl:pr-16 lg:border-r-[0.8px] lg:border-bordures-claires">
           <!-- Image principale (Image_projet) ; les images détail sont dans la sidebar -->
           <ProjectImage src={projectImageUrl(projet)} alt={projet.Nom_projet} />
 
-          <!-- Largeur de lecture confortable, qui suit l'image -->
           <div class="max-w-215">
             <p class="label mt-10">Contexte</p>
             <h2 class="title mt-2">{projet.Titre_contexte}</h2>
@@ -86,7 +83,6 @@ const { projet, otherProjects } = Astro.props;
         </div>
       </div>
 
-      <!-- Carrousel des autres projets (en commençant par le suivant) -->
       <ProjectCarousel projects={otherProjects} />
 
     </div>
@@ -103,7 +99,6 @@ const { projet, otherProjects } = Astro.props;
     @apply font-sans font-semibold text-[10px] leading-3.75 tracking-[1.8px] uppercase text-texte-attenue;
   }
 
-  /* Titres Londrina */
   .title {
     @apply font-londrina font-normal text-[34px] sm:text-[44px] leading-[0.95] text-neutres-gris-fonce;
   }
@@ -111,7 +106,6 @@ const { projet, otherProjects } = Astro.props;
     @apply text-[30px] sm:text-[40px];
   }
 
-  /* Paragraphes (contenu PocketBase) */
   .text {
     @apply font-sans text-[15px] leading-[24.375px] xl:text-[16px] xl:leading-[26px] text-texte-principal;
   }
@@ -119,7 +113,7 @@ const { projet, otherProjects } = Astro.props;
     margin-top: 0.75rem;
   }
 
-  /* Liste Solution avec cases cochées orange (Figma node: 340-1790) */
+  /* Liste Solution avec cases cochées orange */
   .solution-list :global(ul) {
     list-style: none;
     padding: 0;

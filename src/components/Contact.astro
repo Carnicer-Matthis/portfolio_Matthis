@@ -1,5 +1,4 @@
 ---
-// Section Contact (Figma node: 340-1286)
 // Le formulaire envoie les messages dans la collection PocketBase "Messages".
 // Même adresse que le reste du site (variable PUBLIC_PB_URL, voir src/lib/pocketbase.ts)
 import { PB_URL } from '../lib/pocketbase';
@@ -9,21 +8,17 @@ import { PB_URL } from '../lib/pocketbase';
   <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-16">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6">
 
-      <!-- Colonne Gauche : Titre + texte (Figma node: 340-1287) -->
       <div data-reveal class="lg:col-span-5 flex flex-col">
         <h2 class="font-londrina font-normal text-[44px] sm:text-[54px] md:text-t1 leading-none text-neutres-gris-fonce uppercase">
           Contactez-moi
         </h2>
 
-        <!-- Barre de séparation orange (Figma node: 340-1330) -->
         <div data-reveal="bar" class="w-20 sm:w-24 h-0.75 bg-marque-orange rounded-full mt-3"></div>
 
-        <!-- Paragraphe (Figma node: 340-1333) -->
         <p class="font-sans text-[14px] leading-5 text-texte-attenue max-w-[320px] mt-6">
           Un projet, une question, une idée à confronter ? Écrivez-moi, je réponds rapidement.
         </p>
 
-        <!-- CV : téléchargement direct -->
         <div class="mt-6">
           <a
             href="/CV_Matthis_CARNICER.pdf"
@@ -38,7 +33,6 @@ import { PB_URL } from '../lib/pocketbase';
         </div>
       </div>
 
-      <!-- Colonne Droite : Formulaire (Figma node: 340-1336) -->
       <form
         data-reveal
         style="--reveal-delay: 150ms"
@@ -46,7 +40,6 @@ import { PB_URL } from '../lib/pocketbase';
         data-pb-url={PB_URL}
         class="lg:col-span-7 flex flex-col gap-4 p-6 bg-surfaces-blanc/50 border-[0.8px] border-bordures-claires rounded-[10px]"
       >
-        <!-- Prénom (Figma node: 340-1337) -->
         <label class="flex flex-col gap-1">
           <span class="font-sans font-semibold text-[12px] leading-4 tracking-[0.6px] uppercase text-texte-attenue">
             Prénom
@@ -61,7 +54,6 @@ import { PB_URL } from '../lib/pocketbase';
           />
         </label>
 
-        <!-- Email (Figma node: 340-1342) -->
         <label class="flex flex-col gap-1">
           <span class="font-sans font-semibold text-[12px] leading-4 tracking-[0.6px] uppercase text-texte-attenue">
             Email
@@ -76,7 +68,6 @@ import { PB_URL } from '../lib/pocketbase';
           />
         </label>
 
-        <!-- Message (Figma node: 340-1347) -->
         <label class="flex flex-col gap-1">
           <span class="font-sans font-semibold text-[12px] leading-4 tracking-[0.6px] uppercase text-texte-attenue">
             Message
@@ -90,7 +81,6 @@ import { PB_URL } from '../lib/pocketbase';
           ></textarea>
         </label>
 
-        <!-- Bouton Envoyer (Figma node: 340-1353) -->
         <div class="flex flex-wrap items-center gap-4">
           <button
             type="submit"
@@ -158,7 +148,7 @@ import { PB_URL } from '../lib/pocketbase';
 <style>
   @reference "../styles/global.css";
 
-  /* Style commun des champs (Figma: Text Input / Email Input / Text Area) */
+  /* Style commun des champs */
   .field {
     @apply w-full bg-surfaces-blanc border-[0.8px] border-bordures-claires rounded-md px-3 py-2
       font-sans text-[14px] leading-5 text-neutres-gris-fonce

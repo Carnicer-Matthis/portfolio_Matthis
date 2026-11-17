@@ -11,8 +11,7 @@ const PB_URL = env.PUBLIC_PB_URL ?? 'http://127.0.0.1:8090';
 // https://astro.build/config
 export default defineConfig({
   // Adresse publique du site : sert aux URL canoniques, au sitemap et à robots.txt.
-  // À remplacer par ton nom de domaine lors de la mise en ligne (variable SITE_URL).
-  site: env.SITE_URL ?? 'https://matthis-carnicer.fr',
+  site: env.SITE_URL ?? 'https://portfolio.carnicer.fr',
 
   integrations: [sitemap()],
 

@@ -1,22 +1,30 @@
 ---
-// Page Mentions légales (Figma node: 344-1193)
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 const editeur = [
   'Propriétaire et Créateur : Carnicer Matthis',
-  'Adresse de contact : 6 rue Kléber, 90700, Châtenois-les-Forges',
   'Email : matthiscarnicer@gmail.com',
   'Téléphone : 0749778484',
   'Directeur de la publication : Carnicer Matthis',
 ];
 
-// ⚠️ À COMPLÉTER À LA MISE EN LIGNE : nom, adresse et contact de l'hébergeur (obligation légale, loi LCEN)
+// Hébergeur et nom de domaine (obligation légale, loi LCEN)
 const hebergement = {
-  url: '(URL du site)',
-  infos: ["Adresse de l'hébergeur :", "Contact de l'hébergeur :"],
+  url: 'portfolio.carnicer.fr',
+  infos: [
+    'Hébergeur : Netlify, Inc.',
+    'Adresse : 101 2nd Street, Suite 575, San Francisco, CA 94105, États-Unis',
+    'Contact : www.netlify.com/support',
+  ],
 };
+
+const nomDeDomaine = [
+  'Registraire : Infomaniak Network SA',
+  'Adresse : Rue Eugène-Marziano 25, 1227 Les Acacias (Genève), Suisse',
+  'Contact : www.infomaniak.com',
+];
 
 const donneesFormulaire = [
   'Prénom : pour personnaliser les réponses.',
@@ -32,7 +40,7 @@ const donneesFormulaire = [
   <Header />
 
   <main id="contenu" class="w-full bg-neutres-blanc-casse">
-    <!-- Même conteneur que le header, texte limité à 820px (Figma node: 344-1194) -->
+    <!-- Même conteneur que le header, texte limité à 820px -->
     <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-16 pt-12 sm:pt-16 pb-20 lg:pb-28">
       <div class="max-w-205">
 
@@ -41,7 +49,6 @@ const donneesFormulaire = [
         </h1>
         <div data-reveal="bar" class="w-20 sm:w-24 h-0.75 bg-marque-orange rounded-full mt-3"></div>
 
-        <!-- 1. Éditeur du site -->
         <h2 class="title">1. Éditeur du site</h2>
         <p class="text mt-3">
           En vertu de l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique,
@@ -52,14 +59,16 @@ const donneesFormulaire = [
           {editeur.map((item) => <li>{item}</li>)}
         </ul>
 
-        <!-- 2. Hébergement -->
         <h2 class="title">2. Hébergement</h2>
         <p class="text mt-3">Le site {hebergement.url} est hébergé par la société :</p>
         <ul class="list">
           {hebergement.infos.map((item) => <li>{item}</li>)}
         </ul>
+        <p class="text mt-4">Le nom de domaine carnicer.fr est enregistré auprès de :</p>
+        <ul class="list">
+          {nomDeDomaine.map((item) => <li>{item}</li>)}
+        </ul>
 
-        <!-- 3. Propriété intellectuelle et contrefaçons -->
         <h2 class="title">3. Propriété intellectuelle et contrefaçons</h2>
         <p class="text mt-3">
           Sauf indication contraire, Carnicer Matthis détient l'exclusivité des droits de propriété intellectuelle et
@@ -73,7 +82,6 @@ const donneesFormulaire = [
           poursuites judiciaires, en application des articles L.335-2 et suivants du Code de la propriété intellectuelle.
         </p>
 
-        <!-- 4. Données personnelles (RGPD) -->
         <h2 class="title">4. Données personnelles</h2>
         <h3 class="subtitle">Données collectées</h3>
         <p class="text mt-3">
@@ -93,8 +101,9 @@ const donneesFormulaire = [
 
         <h3 class="subtitle">Stockage et durée de conservation</h3>
         <p class="text mt-3">
-          Les messages sont enregistrés dans la base de données du site (PocketBase), accessible uniquement à Matthis
-          Carnicer. Ils sont conservés 12 mois au maximum après le dernier échange, puis supprimés.
+          Les messages sont enregistrés dans la base de données du site (PocketBase), installée sur l'ordinateur de
+          Matthis Carnicer et accessible uniquement à lui. Ils sont conservés 12 mois au maximum après le dernier échange,
+          puis supprimés.
         </p>
 
         <h3 class="subtitle">Vos droits</h3>
@@ -113,7 +122,6 @@ const donneesFormulaire = [
           visite.
         </p>
 
-        <!-- 5. Crédits -->
         <h2 class="title">5. Crédits</h2>
         <ul class="list">
           <li>Conception, design et développement : Matthis Carnicer.</li>
@@ -131,7 +139,7 @@ const donneesFormulaire = [
 <style>
   @reference "../styles/global.css";
 
-  /* Titres de rubrique (Figma: Heading 2, 30px) */
+  /* Titres de rubrique */
   .title {
     @apply mt-10 font-londrina font-normal text-[26px] sm:text-[30px] leading-[1.1] text-neutres-gris-fonce;
   }
@@ -141,12 +149,11 @@ const donneesFormulaire = [
     @apply mt-6 font-londrina font-normal text-[22px] sm:text-[24px] leading-tight text-marque-orange;
   }
 
-  /* Paragraphes */
   .text {
     @apply font-sans text-[15px] leading-[24.375px] text-texte-principal;
   }
 
-  /* Listes avec puce orange "·" (Figma: List) */
+  /* Listes avec puce orange "·" */
   .list {
     @apply mt-2 flex flex-col gap-1 font-sans text-[15px] leading-[24.375px] text-texte-principal;
   }

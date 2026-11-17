@@ -1,5 +1,4 @@
 ---
-// Colonne d'infos à droite de la page détail (Figma node: 340-1840)
 import { Image, getImage, inferRemoteSize } from 'astro:assets';
 import { projectDetailImageUrls, toListHtml, type ProjectRecord } from '../../lib/pocketbase';
 
@@ -18,7 +17,6 @@ const infos = [
   { label: 'Livrables', value: toListHtml(projet.Livrables), html: true },
 ].filter((info) => info.value);
 
-// Images détail (PocketBase) affichées sous les Livrables
 // Pour chaque visuel :
 // - "large" : version optimisée ouverte au clic (au lieu du fichier brut de PocketBase)
 // - "maxWidth" : largeur d'affichage maximale = largeur réelle / 1,5, pour qu'une petite image
@@ -57,7 +55,6 @@ const images = await Promise.all(
       <ul class="mt-3 flex flex-col gap-5">
         {images.map((image, i) => (
           <li>
-            <!-- Clic : ouvre l'image en grand dans un nouvel onglet -->
             <a
               href={image.large}
               target="_blank"

@@ -13,7 +13,6 @@ const { projects } = Astro.props;
 
 <section class="mt-16 pt-8 border-t border-bordures-claires" aria-labelledby="carousel-titre" data-carousel>
 
-  <!-- En-tête : titre + flèches + lien vers tous les projets -->
   <div class="flex flex-wrap items-center justify-between gap-4">
     <h2 id="carousel-titre" class="text-[11px] font-semibold uppercase tracking-[1.8px] text-texte-attenue">
       Projets suivants
@@ -35,7 +34,6 @@ const { projects } = Astro.props;
     </div>
   </div>
 
-  <!-- Piste du carrousel : une liste qui défile horizontalement -->
   <ul
     data-carousel-track
     class="carousel-track mt-5 -mx-1 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-1 py-1 pb-4"
@@ -46,7 +44,6 @@ const { projects } = Astro.props;
       const imageUrl = projectImageUrl(projet);
       return (
         <li class="w-[85%] sm:w-[340px] shrink-0 snap-start">
-          <!-- Carte compacte : vignette à gauche, nom et parcours à droite -->
           <a
             href={`/projets/${projet.id}`}
             class="group flex h-full items-center gap-4 rounded-xl border border-bordures-claires bg-surfaces-blanc p-2 pr-4 transition hover:border-marque-orange hover:-translate-y-0.5"
@@ -102,7 +99,6 @@ const { projects } = Astro.props;
 <style>
   @reference "../../styles/global.css";
 
-  /* Boutons ronds ← → */
   .carousel-btn {
     @apply flex size-10 items-center justify-center rounded-full border border-bordures-claires bg-surfaces-blanc text-neutres-gris-fonce transition-colors cursor-pointer;
     @apply hover:border-marque-orange hover:text-marque-orange;

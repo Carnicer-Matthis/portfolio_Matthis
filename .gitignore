@@ -22,6 +22,5 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
-# PocketBase
-backend/pb_data/
-backend/pocketbase.exe
+# PocketBase : déplacé hors du projet (sur mon Bureau), jamais publié sur GitHub
+backend/

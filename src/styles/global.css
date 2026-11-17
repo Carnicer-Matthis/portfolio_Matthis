@@ -2,9 +2,8 @@
    importées dans Layout.astro. */
 @import "tailwindcss";
 
-/* Couleurs & Typographie Figma */
+/* Couleurs & typographie de la maquette */
 :root {
-  /* Couleurs */
   --bordures-subtiles: #d4d0cf;
   --marque-orange: #fa855a;
   --neutres-blanc-casse: #f3f0ee;
@@ -199,7 +198,6 @@
     }
   }
 }
-
 
 /* ===== Apparition au défilement =====
    Un élément avec data-reveal apparaît en montant légèrement quand il entre à l'écran

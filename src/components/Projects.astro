@@ -11,7 +11,6 @@ const { projects, online } = await getHomeProjects();
 <section id="projets" class="w-full bg-neutres-blanc-casse py-16 sm:py-20 md:py-24 border-b border-bordures-subtiles">
   <div class="w-full max-w-[1680px] mx-auto px-6 sm:px-10 lg:px-16">
 
-    <!-- En-tête : titre à gauche, bouton "Plus de projets" à droite sur la même ligne (Figma nodes: 340-987, 340-1178) -->
     <div class="mb-10 sm:mb-12 md:mb-14 flex flex-wrap items-center justify-between gap-4">
       <div data-reveal>
         <h2 class="font-londrina font-normal text-[38px] sm:text-[54px] md:text-[64px] lg:text-[72px] leading-tight text-neutres-gris-fonce">
@@ -28,7 +27,6 @@ const { projects, online } = await getHomeProjects();
       </a>
     </div>
 
-    <!-- Grille des cartes (1 col mobile, 2 col tablette, 3 col desktop) -->
     {online ? (
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-10 gap-y-12">
         {projects.map((projet, i) => <ProjectCard projet={projet} revealDelay={i * 120} />)}

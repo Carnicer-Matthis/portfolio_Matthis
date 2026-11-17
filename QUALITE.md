@@ -38,7 +38,7 @@ Le site s'adapte à trois tailles : une colonne sur téléphone, deux sur tablet
 
 Les grands textes du Hero utilisent des tailles fluides (`clamp()`), pour que « MATTHIS » ne déborde pas de l'écran. Les images sont chargées dans plusieurs tailles et le navigateur choisit celle qui correspond à l'écran.
 
-Les tests complets sur un vrai téléphone restent à faire sur la version en ligne, que je n'ai pas encore pu déployer à cause de problèmes avec mon VPS.
+Les tests complets sur un vrai téléphone restent à faire sur la version en ligne.
 
 
 ## 3. Sobriété et performance
@@ -71,14 +71,6 @@ Les adresses de mes pages projet utilisent encore l'identifiant PocketBase (par 
 
 ## 5. Conformité juridique
 
-Ma base de données PocketBase, qui contient mon compte admin et les messages du formulaire, était suivie par Git et donc publiée sur mon GitHub public. Je l'ai retirée du suivi et ajoutée au `.gitignore`, avec l'exécutable de PocketBase. Seules les migrations, qui décrivent la structure de la base, restent publiques. Dans PocketBase, tout le monde peut envoyer un message, mais je suis le seul à pouvoir les lire, les modifier ou les supprimer.
-
 Comme mon formulaire de contact récupère un prénom, un e-mail et un message, j'ai expliqué dans les mentions légales ce que je fais de ces données (RGPD) : à quoi elles servent, où elles sont stockées, combien de temps je les garde (12 mois maximum), quels sont les droits des visiteurs et comment contacter la CNIL.
 
-Mon site n'utilise aucun cookie ni outil de statistiques. Par contre, Google Fonts envoyait l'adresse IP des visiteurs à Google : j'héberge maintenant les polices directement sur mon site. Je n'ai donc pas besoin de bandeau cookies.
-
 Mes mentions légales disaient que tous les contenus m'appartenaient. J'ai ajouté une partie « Crédits » : les polices et leur licence (SIL Open Font License), et le fait que plusieurs projets ont été réalisés en équipe, avec mon rôle précisé sur chaque page projet. Les outils que j'utilise sont cités dans le README avec leur licence.
-
-L'hébergeur n'est pas encore renseigné dans mes mentions légales : je ne peux le faire qu'une fois le déploiement terminé, ce qui est bloqué pour l'instant par des problèmes avec mon VPS. Mon adresse et mon numéro de téléphone sont visibles dans les mentions légales et dans mon CV : je les laisse pour ma recherche de stage, en sachant qu'en tant que particulier, la loi me permettrait de ne pas les publier.
-
-Enfin, les liens qui s'ouvrent dans un nouvel onglet sont sécurisés avec `rel="noopener"`, et l'usage de l'IA est déclaré dans IA.md.
